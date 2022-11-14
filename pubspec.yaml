@@ -1,0 +1,77 @@
+name: graduation_project
+description: A new Flutter project.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.6 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  dio: ^4.0.6
+  file_picker: ^5.2.1
+  flutter_svg: ^1.1.5
+  flutter_bloc: ^7.0.0
+  pin_code_text_field: ^1.8.0
+  flutter_custom_clippers: ^2.0.0
+  flutter_staggered_animations: ^1.1.1
+  shared_preferences: ^2.0.15
+  rxdart: ^0.27.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/svgs/
+    - assets/images/
+    - assets/lang/
+
+  fonts:
+    - family: default
+      fonts:
+        - asset: assets/fonts/default/w100.ttf
+        - asset: assets/fonts/default/w200.ttf
+        - asset: assets/fonts/default/w300.ttf
+        - asset: assets/fonts/default/w400.ttf
+        - asset: assets/fonts/default/w500.ttf
+        - asset: assets/fonts/default/w600.ttf
+        - asset: assets/fonts/default/w700.ttf
+        - asset: assets/fonts/default/w800.ttf
+        - asset: assets/fonts/default/w900.ttf
+    
+    - family: num
+      fonts:
+        - asset: assets/fonts/poppins/w100.ttf
+        - asset: assets/fonts/poppins/w200.ttf
+        - asset: assets/fonts/poppins/w300.ttf
+        - asset: assets/fonts/poppins/w400.ttf
+        - asset: assets/fonts/poppins/w500.ttf
+        - asset: assets/fonts/poppins/w600.ttf
+        - asset: assets/fonts/poppins/w700.ttf
+        - asset: assets/fonts/poppins/w800.ttf
+        - asset: assets/fonts/poppins/w900.ttf
+
+    - family: inter
+      fonts:
+        - asset: assets/fonts/inter/w100.ttf
+        - asset: assets/fonts/inter/w200.ttf
+        - asset: assets/fonts/inter/w300.ttf
+        - asset: assets/fonts/inter/w400.ttf
+        - asset: assets/fonts/inter/w500.ttf
+        - asset: assets/fonts/inter/w600.ttf
+        - asset: assets/fonts/inter/w700.ttf
+        - asset: assets/fonts/inter/w800.ttf
+        - asset: assets/fonts/inter/w900.ttf
