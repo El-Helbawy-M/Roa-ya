@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/helpers/app_colors.dart';
@@ -18,10 +17,9 @@ class RegisterBloc extends Bloc<AppEvent, AppState> {
   final password = BehaviorSubject<String?>();
   final name = BehaviorSubject<String?>();
   final confirmPassword = BehaviorSubject<String?>();
-  String generatedPassword = ''; 
+  String generatedPassword = '';
   final condations = BehaviorSubject<bool?>();
-  static RegisterBloc get instance =>
-      BlocProvider.of(CustomNavigator.navigatorState.currentContext!);
+  static RegisterBloc get instance => BlocProvider.of(CustomNavigator.navigatorState.currentContext!);
 
   RegisterBloc() : super(Start()) {
     updateCondations(false);
@@ -34,24 +32,15 @@ class RegisterBloc extends Bloc<AppEvent, AppState> {
   Function(String?) get updateConfirmPassword => confirmPassword.sink.add;
   Function(String?) get updateEmail => email.sink.add;
 
-
   Stream<String?> get nameStream => name.stream.asBroadcastStream();
   Stream<bool?> get condationsStream => condations.stream.asBroadcastStream();
   Stream<String?> get passwordStream => password.stream.asBroadcastStream();
   Stream<String?> get emailStream => email.stream.asBroadcastStream();
 
-  Stream<String?> get confirmPasswordStream =>
-      confirmPassword.stream.asBroadcastStream();
+  Stream<String?> get confirmPasswordStream => confirmPassword.stream.asBroadcastStream();
 
-  Stream<bool> get submitStream => Rx.combineLatest4(
-          nameStream,
-          emailStream,
-          confirmPasswordStream,
-          passwordStream, (a, b, c, d) {
-        if (NameValidator.nameValidator(a as String) == null &&
-            EmailValidator.emailValidator(b as String) == null &&
-            PasswordValidator.passwordValidator(c as String?) == null &&
-            PasswordConfirmationValidator.passwordValidator(d as String,c as String) == null) {
+  Stream<bool> get submitStream => Rx.combineLatest4(nameStream, emailStream, confirmPasswordStream, passwordStream, (a, b, c, d) {
+        if (NameValidator.nameValidator(a as String) == null && EmailValidator.emailValidator(b as String) == null && PasswordValidator.passwordValidator(c as String?) == null && PasswordConfirmationValidator.passwordValidator(d as String, c as String) == null) {
           return true;
         }
         return false;
@@ -77,47 +66,34 @@ class RegisterBloc extends Bloc<AppEvent, AppState> {
   Stream<AppState> mapEventToState(AppEvent event) async* {
     yield Loading();
     try {
-      if (event is Click) {
-        if (condations.valueOrNull!) {
+      if (event is Post) {
+        //condations.valueOrNull!
+        if (true) {
           FormData data = FormData.fromMap({
             "name": name.valueOrNull!,
             "email": email.valueOrNull!,
             "password": password.valueOrNull!,
           });
           UserModel model = await RegistrationRepo.register(data: data);
-          if (model.errors == null) {
+          if (model.errors == null && model.message == null) {
             CustomNavigator.push(Routes.main);
-                //arguments: VerificationModel(model.user!.email!, model.user!.verificationCode!));
-            AppCore.showSnackBar(
-                notification: AppNotification(
-                    message: "You logged in successfully",
-                    backgroundColor: AppColors.active,
-                    iconName: "check-circle"));
+            //arguments: VerificationModel(model.user!.email!, model.user!.verificationCode!));
+            AppCore.showSnackBar(notification: AppNotification(message: "You logged in successfully", backgroundColor: AppColors.active, iconName: "check-circle"));
             yield Done();
           } else {
             AppCore.showSnackBar(
-                notification: AppNotification(
-                    message: model.errors!.email ?? (model.errors!.password ?? ""),
-                    backgroundColor: AppColors.inActive,
-                    iconName: "fill-close-circle"));
+              notification: AppNotification(message: model.message ?? (model.errors!.email ?? (model.errors!.password ?? "")), backgroundColor: AppColors.inActive, iconName: "fill-close-circle"),
+            );
 
             yield Error();
           }
         } else {
-          AppCore.showSnackBar(
-                notification: AppNotification(
-                    message: "Please agree to the terms",
-                    backgroundColor: AppColors.inActive,
-                    iconName: "fill-close-circle"));
-                    yield Error();
+          AppCore.showSnackBar(notification: AppNotification(message: "Please agree to the terms", backgroundColor: AppColors.inActive, iconName: "fill-close-circle"));
+          yield Error();
         }
       }
     } catch (e) {
-      AppCore.showSnackBar(
-          notification: AppNotification(
-              message: e.toString(),
-              backgroundColor: AppColors.inActive,
-              iconName: "fill-close-circle"));
+      AppCore.showSnackBar(notification: AppNotification(message: e.toString(), backgroundColor: AppColors.inActive, iconName: "fill-close-circle"));
       yield Error();
     }
   }

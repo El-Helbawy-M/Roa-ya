@@ -60,7 +60,7 @@ class EmailValidator {
 
 class PasswordValidator {
   static String? passwordValidator(var password) {
-    if (password!.length < 6) {
+    if (password!.length < 8) {
       return getLang("password_length_validation");
     }
     return null;
@@ -70,7 +70,7 @@ class PasswordValidator {
 class PasswordConfirmationValidator {
   static String? passwordValidator(String? password, String? confirmPassword) {
     if(confirmPassword == null) return getLang("enter_confirm_password_validation");
-    else if (confirmPassword.length < 6) {
+    else if (confirmPassword.length < 8) {
       return getLang("confirm_password_length_validation");
     }
     else if(password!=null){
