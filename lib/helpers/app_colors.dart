@@ -12,4 +12,6 @@ abstract class AppColors{
   static Color inputFieldColor = const Color(0xffF6F6F6);
   static Color hint = const Color(0xff828282);
   static Color searchField = const Color(0xffF6F6F6);
+  static Color header = const Color(0xFF373737);
+  static Color subHeader = const Color(0xFF737373);
 }

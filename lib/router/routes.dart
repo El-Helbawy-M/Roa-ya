@@ -10,4 +10,5 @@ abstract class Routes{
   static const String more = "more";
   static const String profile = "profile";
   static const String onboarding = "onboarding";
+  static const String diseaseDetection = "disease_detection";
 }

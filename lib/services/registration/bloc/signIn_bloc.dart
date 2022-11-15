@@ -35,7 +35,7 @@ class SignInBloc extends Bloc<AppEvent, AppState> {
   Stream<bool?> get rememberMeStream => rememberMe.stream.asBroadcastStream();
   Stream<bool> get submitStream =>
       Rx.combineLatest2(emailStream, passwordStream, (n, p) {
-        if (NameValidator.nameValidator(n as String?) == null &&
+        if (EmailValidator.emailValidator(n as String?) == null &&
             PasswordValidator.passwordValidator(p as String?) == null) {
           return true;
         }

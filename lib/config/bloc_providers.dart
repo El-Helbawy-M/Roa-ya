@@ -2,6 +2,7 @@
 
 import 'package:flutter_bloc/src/bloc_provider.dart'
     show BlocProvider, BlocProviderSingleChildWidget;
+import 'package:graduation_project/services/disease_detection/bloc/uploader_bloc.dart';
 import 'package:graduation_project/services/registration/bloc/register_bloc.dart';
 import 'package:graduation_project/services/registration/bloc/signIn_bloc.dart';
 import 'package:graduation_project/services/registration/bloc/user_bloc.dart';
@@ -13,5 +14,6 @@ abstract class ProviderList {
     BlocProvider<RegisterBloc>(create: (_) => RegisterBloc()),
     BlocProvider<SplashBloc>(create: (_) => SplashBloc()),
     BlocProvider<UserBloc>(create: (_) => UserBloc()),
+    BlocProvider<UploaderBloc>(create: (_) => UploaderBloc()),
   ];
 }

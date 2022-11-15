@@ -15,6 +15,7 @@ class CustomTextField extends StatelessWidget {
     this.errorText = "",
     this.type = TextInputType.text,
     this.hide = false,
+    this.isLarge = false,
     this.suffixIcon
   }) : super(key: key);
   final Key? fieldKey;
@@ -26,6 +27,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputType type;
   final Widget? suffixIcon;
   final bool hide;
+  final bool isLarge;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -34,7 +36,7 @@ class CustomTextField extends StatelessWidget {
         Text(hint,style: AppTextStyles.w500.copyWith(fontSize: 15),),
         SizedBox(height: 8),
         SizedBox(
-          height: 54,
+          height: isLarge? 80:54,
           child: TextFormField(
             key: fieldKey,
             style: AppTextStyles.w500.copyWith(fontSize: 12),
