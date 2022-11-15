@@ -31,7 +31,7 @@ abstract class AppCore{
                   Expanded(
                     child: Text(
                       notification.message,
-                      style: AppTextStyles.w600.copyWith(fontSize: 13),
+                      style: AppTextStyles.w600.copyWith(fontSize: 13,color: Colors.white),
                     ),
                   ),
                 ],
