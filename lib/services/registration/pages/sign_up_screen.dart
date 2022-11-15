@@ -21,8 +21,9 @@ import '../../../core/app_events.dart';
 import '../../../core/app_states.dart';
 
 class SingUpScreen extends StatefulWidget {
-  const SingUpScreen({Key? key}) : super(key: key);
-
+  const SingUpScreen({Key? key,this.isTestMode = false,this.onTest}) : super(key: key);
+  final bool isTestMode;
+  final Function()? onTest;
   @override
   State<SingUpScreen> createState() => _SingUpScreenState();
 }
@@ -71,6 +72,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                           builder: (context, snapshot) {
                             return CustomTextField(
                                 hint: "Your Name",
+                                fieldKey: ValueKey("name"),
                                 onChange: RegisterBloc.instance.updateName,
                                 type: TextInputType.text,
                                 onValidate: (v) {
@@ -90,6 +92,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                           builder: (context, snapshot) {
                             return CustomTextField(
                               hint: getLang("email"),
+                              fieldKey: ValueKey("email"),
                               onChange: RegisterBloc.instance.updateEmail,
                               type: TextInputType.emailAddress,
                               onValidate: (v) {
@@ -110,6 +113,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                           builder: (context, snapshot) {
                             return CustomTextField(
                               hint: getLang("password"),
+                              fieldKey: ValueKey("password"),
                               onChange: RegisterBloc.instance.updatePassword,
                               type: TextInputType.visiblePassword,
                               suffixIcon: Padding(
@@ -140,6 +144,8 @@ class _SingUpScreenState extends State<SingUpScreen> {
                           builder: (context, snapshot) {
                             return CustomTextField(
                               hint: getLang("confirm_password"),
+                              
+                              fieldKey: ValueKey("confirm_password"),
                               onChange: RegisterBloc.instance.updateConfirmPassword,
                               type: TextInputType.visiblePassword,
                               suffixIcon: Padding(
@@ -171,11 +177,13 @@ class _SingUpScreenState extends State<SingUpScreen> {
                             builder: (context, snapshot) {
                               return CustomBtn(
                                 text: getLang("sign_up"),
+                                key: Key("btn"),
                                 onTap: () {
                                   log("${_formKey.currentState!.validate()}  ${snapshot.data}");
                                   if (snapshot.hasData) {
                                     if (snapshot.data!) {
-                                      RegisterBloc.instance.add(Post());
+                                      if(!widget.isTestMode) {RegisterBloc.instance.add(Post());}
+                                      else {widget.onTest!=null?widget.onTest!():(){};}
                                     }
                                   }
                                 },
