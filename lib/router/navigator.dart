@@ -43,7 +43,7 @@ class CustomNavigator {
         case Routes.diseaseDetection:
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              const InputPage(),
+              InputPage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return SlideTransition(
               position: animation.drive(tween),

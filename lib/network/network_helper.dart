@@ -71,6 +71,7 @@ class NetworkHelper {
       var body,
       Mapper? model,
       var headers,
+      String? base,
       bool withToken = true}) async {
     Response? _res;
     try {
@@ -89,20 +90,25 @@ class NetworkHelper {
           };
         }
       }
+      if(base!=null){
+        _dio!.options.baseUrl = base;
+      }
+      print("hello");
       if (body != null) {
-        log('==: Body => ${body}');
+        print("object");
+        print('==: Body => ${body}');
         _res = await _dio!.post(url!, data: body);
       } else {
         _res = await _dio!.post(url!);
       }
-
-      log('==: End point => ${_dio!.options.baseUrl}$url');
-      log('Response >>> ${_res}');
+      _dio!.options.baseUrl = baseUrl;
+      print('==: End point => ${_dio!.options.baseUrl}$url');
+      print('Response >>> ${_res}');
     } on DioError catch (e) {
       _res = e.response;
-      log('==: End point => ${_dio!.options.baseUrl}$url');
-      log('Exception >>>  ${e.response.toString()}');
-      log('e >>>  ${e.message}');
+      print('==: End point => ${_dio!.options.baseUrl}$url');
+      print('Exception >>>  ${e.response.toString()}');
+      print('e >>>  ${e.message}');
       if (e.message.contains('Network is unreachable')) {
         return AppCore.showSnackBar(notification: AppNotification(message: 'Network is unreachable',backgroundColor: AppColors.inActive,iconName: "fill-close-circle"));
       }
@@ -114,6 +120,7 @@ class NetworkHelper {
       else if (model == null)
         return _res;
       else
+        print(url);
         return Mapper(model, _res.data);
     }
 
@@ -122,6 +129,7 @@ class NetworkHelper {
     } else {
       return Mapper(model, _res.data);
     }
+    
   }
 
   Future<dynamic> download(

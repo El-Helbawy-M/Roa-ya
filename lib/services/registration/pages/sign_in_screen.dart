@@ -75,9 +75,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               type: TextInputType.emailAddress,
                               onValidate: (v) {
                                 if (EmailValidator.emailValidator(v as String) != null) {
-                                  SignInBloc.instance.email.addError(
-                                    EmailValidator.emailValidator(v)!,
-                                  );
+                                  SignInBloc.instance.email.addError(EmailValidator.emailValidator(v)!);
                                 }
                               },
                               hasError: snapshot.hasError,

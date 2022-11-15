@@ -1,21 +1,23 @@
+import 'package:graduation_project/network/shared_helper.dart';
 import 'package:graduation_project/router/navigator.dart';
+import 'package:graduation_project/router/routes.dart';
 
 class QuickAccessOptions {
-  int length = 3;
+  int length = 2;
   List<String> names = [
-    "Fundus \nDetection",
-    "Regular \nDetection",
+    "Diseas \nDetection",
     "Coming \nSoon",
   ];
   List<String> icons = [
     "eye_fundus",
-    "regular_image",
     "soon",
   ];
 
   List<Function()> actions = [
-    () => CustomNavigator.navigatorState, 
-    () => CustomNavigator.navigatorState,
-    (){}
+    () => CustomNavigator.push(Routes.diseaseDetection),
+    () {
+      CustomNavigator.push(Routes.onboarding);
+      return SharedHelper.sharedHelper!.logout();
+    },
   ];
 }

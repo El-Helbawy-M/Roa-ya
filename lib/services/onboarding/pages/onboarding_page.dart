@@ -76,12 +76,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
                                     text: TextSpan(
                                       text: "Because we",
                                       style: AppTextStyles.w300
-                                          .copyWith(fontSize: 16),
+                                          .copyWith(fontSize: 16,color: Colors.white),
                                       children: [
                                         TextSpan(
                                           text: " Care",
                                           style: AppTextStyles.w700
-                                              .copyWith(fontSize: 16),
+                                              .copyWith(fontSize: 16,color: Colors.white),
                                         )
                                       ],
                                     ),
