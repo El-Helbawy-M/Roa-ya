@@ -5,6 +5,7 @@ import 'package:graduation_project/config/bloc_providers.dart';
 import 'package:graduation_project/network/shared_helper.dart';
 import 'package:graduation_project/router/navigator.dart';
 import 'package:graduation_project/router/routes.dart';
+import 'package:graduation_project/services/disease_detection/pages/input_page.dart';
 import 'package:graduation_project/services/onboarding/pages/onboarding_page.dart';
 
 import 'core/localization.dart';
@@ -30,8 +31,8 @@ class MyApp extends StatelessWidget {
           fontFamily: "inter",
         ),
         debugShowCheckedModeBanner: false,
-        initialRoute: Routes.splash,
-        // home: const OnboardingPage(),
+        // initialRoute: Routes.splash,
+        home: const InputPage(),
         navigatorKey: CustomNavigator.navigatorState,
         navigatorObservers: [CustomNavigator.routeObserver],
         scaffoldMessengerKey: CustomNavigator.scaffoldState,

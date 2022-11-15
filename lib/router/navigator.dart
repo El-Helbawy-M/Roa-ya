@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project/router/routes.dart';
+import 'package:graduation_project/services/disease_detection/pages/input_page.dart';
 import 'package:graduation_project/services/disease_detection/pages/output_page.dart';
 import 'package:graduation_project/services/onboarding/pages/onboarding_page.dart';
 import 'package:graduation_project/services/registration/pages/forget_bassword_screen.dart';
@@ -32,6 +33,17 @@ class CustomNavigator {
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
               const SignInScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return SlideTransition(
+              position: animation.drive(tween),
+              child: child,
+            );
+          },
+        );
+        case Routes.diseaseDetection:
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const InputPage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return SlideTransition(
               position: animation.drive(tween),

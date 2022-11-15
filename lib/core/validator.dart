@@ -51,7 +51,8 @@ class Validator {
 
 class EmailValidator {
   static String? emailValidator(String? email) {
-    if (email!.length < 10 || !email.contains("@") || !email.contains(".com")) {
+    if(email == null) return "Please enter your email";
+    if (email.length < 10 || !email.contains("@") || email.contains(".com")) {
       return getLang("please_enter_valid_email");
     }
     return null ;

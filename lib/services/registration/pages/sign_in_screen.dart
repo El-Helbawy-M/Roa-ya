@@ -21,8 +21,9 @@ import '../../../router/routes.dart';
 import '../widgets/facebook_google_registration.dart';
 
 class SignInScreen extends StatefulWidget {
-  const SignInScreen({Key? key,this.isTestMode = false}) : super(key: key);
+  const SignInScreen({Key? key, this.isTestMode = false, this.onTest}) : super(key: key);
   final bool isTestMode;
+  final Function()? onTest;
   @override
   State<SignInScreen> createState() => _SignInScreenState();
 }
@@ -132,11 +133,14 @@ class _SignInScreenState extends State<SignInScreen> {
                                 key: Key("login_btn"),
                                 text: getLang("Log_in"),
                                 onTap: () {
-                                  print(SignInBloc.instance.password.valueOrNull);
                                   log("${_formKey.currentState!.validate()}  ${snapshot.data}");
                                   if (snapshot.hasData) {
                                     if (snapshot.data!) {
-                                      SignInBloc.instance.add(Post());
+                                      if (!widget.isTestMode) {
+                                        SignInBloc.instance.add(Post());
+                                      } else {
+                                        widget.onTest != null ? widget.onTest!() : () {};
+                                      }
                                     }
                                   }
                                 },
