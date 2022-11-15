@@ -64,6 +64,7 @@ class SharedHelper {
 
   Future<UserModel> getUser() async {
     UserModel _user;
+    print(jsonDecode(shared!.getString(CachingKey.USER)!));
     _user = UserModel().fromJson(jsonDecode(shared!.getString(CachingKey.USER)!)) as UserModel;
     log('USER INFO >>> ${_user.toJson()}');
     return _user;

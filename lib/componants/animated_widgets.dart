@@ -1,6 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
+
+
+class AnimatedWidgets extends StatelessWidget {
+  final Widget? child;
+  final double? verticalOffset;
+  final double? horizontalOffset;
+  final double? durationMilli;
+
+  const AnimatedWidgets(
+      {Key? key,
+      this.child,
+      this.verticalOffset,
+      this.horizontalOffset,
+      this.durationMilli})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimationConfiguration.staggeredList(
+      position: 2,
+      duration: Duration(milliseconds: durationMilli != null ? durationMilli!.toInt() : 500),
+      child: SlideAnimation(
+        curve: Curves.easeInOut,
+        horizontalOffset: horizontalOffset ?? 0,
+        verticalOffset: verticalOffset ?? 50,
+        child: FadeInAnimation(
+          child: child!,
+        ),
+      ),
+    );
+  }
+}
+
 class ListAnimator extends StatefulWidget {
   final List<Widget>? data;
   final int? durationMilli;

@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           fontFamily: "inter",
         ),
         debugShowCheckedModeBanner: false,
-        initialRoute: Routes.onboarding,
+        initialRoute: Routes.splash,
         // home: const OnboardingPage(),
         navigatorKey: CustomNavigator.navigatorState,
         navigatorObservers: [CustomNavigator.routeObserver],

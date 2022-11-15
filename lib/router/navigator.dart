@@ -7,8 +7,9 @@ import 'package:graduation_project/services/registration/pages/reset_password_sc
 import 'package:graduation_project/services/registration/pages/sign_in_screen.dart';
 import 'package:graduation_project/services/registration/pages/sign_up_screen.dart';
 import 'package:graduation_project/services/registration/pages/verfication_screen.dart';
+import 'package:graduation_project/services/splash/pages/splash_page.dart';
 
-import '../services/home/pages/home_screnn.dart';
+import '../services/home/pages/home_screen.dart';
 
 const begin = Offset(0.0, 1.0);
 const end = Offset.zero;
@@ -30,7 +31,18 @@ class CustomNavigator {
       case Routes.login:
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              const SingInScreen(),
+              const SignInScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return SlideTransition(
+              position: animation.drive(tween),
+              child: child,
+            );
+          },
+        );
+      case Routes.splash:
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const Splash(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return SlideTransition(
               position: animation.drive(tween),

@@ -77,8 +77,8 @@ class Errors {
   Errors({this.email});
 
   Errors.fromJson(Map<String, dynamic> json) {
-    email = json['email'].cast<String>().first;
-    password = json['password'].cast<String>().first;
+    email = json['email']!=null?json['email'].cast<String>().first:null;
+    password = json['password']!=null?json['password'].cast<String>().first:null;
   }
 
   Map<String, dynamic> toJson() {
