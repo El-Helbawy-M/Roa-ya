@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation_project/services/home/models/quick_access_model.dart';
 
 import '../../../componants/animated_widgets.dart';
 import '../../../componants/custom_icon.dart';
@@ -7,10 +8,10 @@ import '../../../helpers/app_media_query.dart';
 import '../../../helpers/app_text_styles.dart';
 
 class QuickActionsPanel extends StatelessWidget {
-  const QuickActionsPanel({
+  QuickActionsPanel({
     Key? key,
   }) : super(key: key);
-
+  final QuickAccessOptions model = QuickAccessOptions();
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -19,26 +20,26 @@ class QuickActionsPanel extends StatelessWidget {
       child: ListAnimator(
         direction: Axis.horizontal,
         data: List.generate(
-          5,
-          (index) => Container(
-            width: 142,
-            height: 142,
-            margin: index == 0?const EdgeInsets.only(left: 24,right: 4):const EdgeInsets.symmetric(horizontal: 4),
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: AppColors.mainColor),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                customImageIcon(width: 50,height: 50,imageName: "search_image"),
-                RichText(
-                  text: TextSpan(
-                    text: "Fundus ",
-                    children: [TextSpan(text: "\nDetection", style: AppTextStyles.w600.copyWith(fontSize: 13,color: Colors.white))],
-                    style: AppTextStyles.w400.copyWith(fontSize: 13, color: Colors.white),
-                  ),
+          model.length,
+          (index) => Padding(
+            padding: index == 0?const EdgeInsets.only(left: 24,right: 8):const EdgeInsets.symmetric(horizontal: 8),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(15),
+              onTap: model.actions[index],
+              child: Container(
+                width: 142,
+                height: 142,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: AppColors.mainColor),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(width: 50,height: 50,child: customImageIconSVG(imageName: model.icons[index],color: Colors.white)),
+                    Text(model.names[index],style: AppTextStyles.w600.copyWith(fontSize: 13,color: Colors.white),),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),

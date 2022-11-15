@@ -21,7 +21,9 @@ import 'package:graduation_project/services/registration/models/user_model.dart'
 
 import '../../../componants/custom_arrow_back.dart';
 import '../../../router/navigator.dart';
+import '../widgets/latest_results_panel.dart';
 import '../widgets/main_option_btn.dart';
+import '../widgets/mock_page.dart';
 import '../widgets/profile_header.dart';
 import '../widgets/quick_actions_panel.dart';
 
@@ -59,58 +61,19 @@ class HomeScreen extends StatelessWidget {
                     padding: EdgeInsets.only(left: 24, right: 24, top: 36, bottom: 24),
                     child: SectionTitle(title: "Quick Actions"),
                   ),
-                  const QuickActionsPanel(),
+                  QuickActionsPanel(),
                   const Padding(
                     padding: EdgeInsets.only(left: 24, right: 24, top: 36, bottom: 24),
                     child: SectionTitle(title: "Latest Results"),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal:24),
-                    child: Column(
-                      children: List.generate(
-                        10,
-                        (index) => Container(
-                          height: 68,
-                          width: MediaHelper.width,
-                          margin: const EdgeInsets.only(bottom: 16),
-                          padding: EdgeInsets.symmetric(horizontal: 16),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: AppColors.searchField,
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CustomNetworkImage.circleNewWorkImage(
-                                radius: 25,
-                                color: Colors.white,
-                                backGroundColor: Colors.white,
-                                image: "https://rewo.rw/wp-content/uploads/2022/03/7-77391_businessman-transparent-business-man-png.jpg",
-                              ),
-                              const SizedBox(width: 16),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Ahmed Emad", style: AppTextStyles.w700.copyWith(fontSize: 18)),
-                                  const SizedBox(height: 4),
-                                  Text("Ahmed Emad", style: AppTextStyles.w400.copyWith(fontSize: 12,color: AppColors.mainColor)),
-                                ],
-                              ),
-                              const Expanded(child: SizedBox()),
-                              customImageIconSVG(imageName: "square_back_ios_arrow")
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal:24),
+                    child: LatestResultsPanel(),
                   ),
                 ],
               );
             } else {
-              return const CustomShimmer(
-                child: ListAnimator(data: []),
-              );
+              return  HomeMockPage();
             }
           }),
         ),
@@ -118,3 +81,4 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+

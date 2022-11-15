@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/core/app_events.dart';
 import 'package:graduation_project/core/app_states.dart';
 import 'package:graduation_project/helpers/app_colors.dart';
+import 'package:graduation_project/services/registration/bloc/user_bloc.dart';
 import 'package:graduation_project/services/registration/repo/signIn_repo.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -68,6 +69,7 @@ class SignInBloc extends Bloc<AppEvent, AppState> {
         if (model.errors == null && model.message == null) {
           SharedHelper.sharedHelper!
               .saveUser(model, remember: false, password: password.valueOrNull);
+              UserBloc.instance.add(Click());
           CustomNavigator.push(Routes.main, clean: true);
           clear();
           AppCore.showSnackBar(
