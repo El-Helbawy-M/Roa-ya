@@ -34,7 +34,7 @@
  "please_enter_valid_user_name": " الرجاء إدخال اسم مستخدم صالح",
  "please_enter_valid_location": " الرجاء إدخال موقع صالح",
  "please_enter_valid_email": " يرجى إدخال البريد الإلكتروني الصحيح",
- "please_enter_valid_org": " المؤسسة الحالية غير صالحة ، يرجى مراجعة مسؤول النظام الخاص بك"
- 
+ "please_enter_valid_org": " المؤسسة الحالية غير صالحة ، يرجى مراجعة مسؤول النظام الخاص بك",
+ "please_enter_valid_description":"الرجاء ادخال وصف صحيح"
   
 }

@@ -177,7 +177,6 @@ class _SingUpScreenState extends State<SingUpScreen> {
                             builder: (context, snapshot) {
                               return CustomBtn(
                                 text: getLang("sign_up"),
-                                key: Key("btn"),
                                 onTap: () {
                                   log("${_formKey.currentState!.validate()}  ${snapshot.data}");
                                   if (snapshot.hasData) {

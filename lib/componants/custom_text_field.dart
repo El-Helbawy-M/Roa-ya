@@ -38,7 +38,6 @@ class CustomTextField extends StatelessWidget {
         SizedBox(
           height: isLarge? 80:54,
           child: TextFormField(
-            key: fieldKey,
             style: AppTextStyles.w500.copyWith(fontSize: 12),
             validator: onValidate,
             onChanged: onChange,

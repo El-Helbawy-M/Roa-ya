@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/core/app_states.dart';
+import 'package:graduation_project/services/disease_detection/model/custom_model_sheet.dart';
 import 'package:graduation_project/services/disease_detection/repo/uploader_repo.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -15,20 +16,20 @@ import '../model/result_model.dart';
 class UploaderBloc extends Bloc<AppEvent, AppState> {
   UploaderBloc() : super(Start());
   static UploaderBloc get instance => BlocProvider.of(CustomNavigator.navigatorState.currentContext!);
-  final patientName = BehaviorSubject<String?>();
+  final patientName = BehaviorSubject<CustomModelSheet?>();
   final notes = BehaviorSubject<String?>();
   final image = BehaviorSubject<MultipartFile?>();
 
-  Function(String?) get updatePatientName => patientName.sink.add;
+  Function(CustomModelSheet?) get updatePatientName => patientName.sink.add;
   Function(String?) get updateNotes => notes.sink.add;
   Function(MultipartFile?) get updateImage => image.sink.add;
 
-  Stream<String?> get patientNameStream => patientName.stream.asBroadcastStream();
+  Stream<CustomModelSheet?> get patientNameStream => patientName.stream.asBroadcastStream();
   Stream<String?> get notesStream => notes.stream.asBroadcastStream();
   Stream<MultipartFile?> get imageStream => image.stream.asBroadcastStream();
 
-  Stream<bool> get submitStream => Rx.combineLatest3(patientName, notesStream, imageStream, (a, b, c) {
-        if (NameValidator.nameValidator(a as String) == null && NoteValidator.nameValidator(b as String) == null && c == null) {
+  Stream<bool> get submitStream => Rx.combineLatest2(patientNameStream, imageStream, (a, b) {
+        if (a != null && b != null) {
           return true;
         }
         return false;

@@ -28,6 +28,7 @@ dependencies:
   rxdart: ^0.27.0
   shimmer: ^2.0.0
   image_picker: ^0.8.6
+  should_rebuild: ^1.0.1
   
 
 

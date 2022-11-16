@@ -14,4 +14,6 @@ abstract class AppColors{
   static Color searchField = const Color(0xffF6F6F6);
   static Color header = const Color(0xFF373737);
   static Color subHeader = const Color(0xFF737373);
+  static Color lightFieldColor = const Color(0xffF9F9FA);
+  static Color lightHeader = const Color(0xff616161);
 }

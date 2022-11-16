@@ -194,6 +194,7 @@ import 'package:graduation_project/helpers/app_colors.dart';
 import 'package:graduation_project/helpers/app_media_query.dart';
 import 'package:path/path.dart';
 
+import '../helpers/app_text_styles.dart';
 import '../helpers/image_picker_helper.dart';
 import 'custom_button.dart';
 
@@ -202,12 +203,12 @@ class UploadImage extends StatefulWidget {
 
   final ValueChanged? updateFile;
   final bool isFilled;
-
+  final bool hasError;
+  final String? errorText;
   final String? label;
-
   final File? selectedImage;
 
-  const UploadImage({Key? key, required this.updatedImage, this.label, this.selectedImage, this.isFilled = false, this.updateFile}) : super(key: key);
+  const UploadImage({Key? key, required this.updatedImage, this.label, this.selectedImage, this.isFilled = false, this.updateFile,this.hasError = false,this.errorText}) : super(key: key);
 
   @override
   State<UploadImage> createState() => _UploadImageState();
@@ -247,7 +248,7 @@ class _UploadImageState extends State<UploadImage> {
                   borderRadius: BorderRadius.circular(15.0),
                   border: Border.all(
                     width: 1,
-                    color: widget.isFilled? AppColors.mainColor : AppColors.borderColor,
+                    color: widget.isFilled? AppColors.mainColor : (widget.hasError? AppColors.inActive:AppColors.borderColor),
                   )
                   // image: DecorationImage(
                   //     image: Image.asset(
@@ -270,7 +271,7 @@ class _UploadImageState extends State<UploadImage> {
                               image!,
                               fit: BoxFit.fill,
                             )
-                          : customImageIconSVG(imageName: 'gallery', color: AppColors.mainColor),
+                          : customImageIconSVG(imageName: 'gallery', color: (widget.hasError? AppColors.inActive:AppColors.borderColor)),
                     ),
                   ),
                   SizedBox(
@@ -346,6 +347,7 @@ class _UploadImageState extends State<UploadImage> {
             ),
           ),
         ),
+        if(widget.hasError) Text(widget.errorText??"",style: AppTextStyles.w400.copyWith(fontSize: 14,color: AppColors.inActive),)
       ],
     );
   }
