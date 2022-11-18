@@ -34,12 +34,13 @@ class NetworkHelper {
     if (headers != null) {
       _dio!.options.headers = headers;
     } else {
-      String _token = await SharedHelper.sharedHelper!.readString(CachingKey.TOKEN);
+      String _token =
+          await SharedHelper.sharedHelper!.readString(CachingKey.TOKEN);
       // String lang = await allTranslations.getPreferredLanguage();
       _dio!.options.headers = {
         'Authorization': 'Bearer $_token',
         'Accept': 'application/json',
-        'Accept-Language': "US",//lang == 'en' ? "US" : "AR"
+        'Accept-Language': "US", //lang == 'en' ? "US" : "AR"
       };
     }
     log('==: End point => ${_dio!.options.baseUrl}$url');
@@ -61,7 +62,7 @@ class NetworkHelper {
 
     if (model == null) {
       return _res;
-    }else {
+    } else {
       return Mapper(model, _res.data);
     }
   }
@@ -75,6 +76,80 @@ class NetworkHelper {
       bool withToken = true}) async {
     Response? _res;
     try {
+      if (base != null) {
+        _dio!.options.baseUrl = base;
+      }
+      if (headers != null) {
+        _dio!.options.headers = headers;
+      } else {
+
+        if (withToken) {
+          String _token =
+              await SharedHelper.sharedHelper!.readString(CachingKey.TOKEN);
+          // String lang = await allTranslations.getPreferredLanguage();
+          log('Token is >>> $_token');
+          _dio!.options.headers = {
+            'Authorization': 'Bearer $_token',
+            'Accept': 'application/json',
+            'Accept-Language': "US", //lang == 'en' ? "US" : "AR"
+          };
+        }
+      }
+      if (base != null) {
+        _dio!.options.baseUrl = base;
+      }
+      print("hello");
+      if (body != null) {
+        print("object");
+        print('==: Body => ${body}');
+        _res = await _dio!.post(url!, data: body);
+      } else {
+        _res = await _dio!.post(url!);
+      }
+      print('==: End point => ${_dio!.options.baseUrl}$url');
+      print('Response >>> ${_res}');
+
+      // if (base != null)
+    } on DioError catch (e) {
+      _res = e.response;
+      print('==: End point => ${_dio!.options.baseUrl}$url');
+      print('Exception >>>  ${e.response.toString()}');
+      print('e >>>  ${e.message}');
+      if (e.message.contains('Network is unreachable')) {
+        return AppCore.showSnackBar(
+            notification: AppNotification(
+                message: 'Network is unreachable',
+                backgroundColor: AppColors.inActive,
+                iconName: "fill-close-circle"));
+      }
+      
+    _dio!.options.baseUrl = baseUrl;
+      if (_res == null)
+        return Response(
+            data: {"status": 0, "message": "NO INTERNET CONNECTION"},
+            requestOptions: RequestOptions(path: ''));
+      else if (model == null)
+        return _res;
+      else
+        print(url);
+      return Mapper(model, _res.data);
+    }
+
+    if (model == null) {
+      return _res;
+    } else {
+      return Mapper(model, _res.data);
+    }
+  }
+
+  Future<dynamic> download(
+      {@required String? url,
+      var body,
+      Mapper? model,
+      var headers,
+      bool withToken = true}) async {
+    Response<ResponseBody>? _res;
+    try {
       if (headers != null) {
         _dio!.options.headers = headers;
       } else {
@@ -86,84 +161,23 @@ class NetworkHelper {
           _dio!.options.headers = {
             'Authorization': 'Bearer $_token',
             'Accept': 'application/json',
-            'Accept-Language': "US",//lang == 'en' ? "US" : "AR"
-          };
-        }
-      }
-      if(base!=null){
-        _dio!.options.baseUrl = base;
-      }
-      print("hello");
-      if (body != null) {
-        print("object");
-        print('==: Body => ${body}');
-        _res = await _dio!.post(url!, data: body);
-      } else {
-        _res = await _dio!.post(url!);
-      }
-      _dio!.options.baseUrl = baseUrl;
-      print('==: End point => ${_dio!.options.baseUrl}$url');
-      print('Response >>> ${_res}');
-    } on DioError catch (e) {
-      _res = e.response;
-      print('==: End point => ${_dio!.options.baseUrl}$url');
-      print('Exception >>>  ${e.response.toString()}');
-      print('e >>>  ${e.message}');
-      if (e.message.contains('Network is unreachable')) {
-        return AppCore.showSnackBar(notification: AppNotification(message: 'Network is unreachable',backgroundColor: AppColors.inActive,iconName: "fill-close-circle"));
-      }
-
-      if (_res == null)
-        return Response(
-            data: {"status": 0, "message": "NO INTERNET CONNECTION"},
-            requestOptions: RequestOptions(path: ''));
-      else if (model == null)
-        return _res;
-      else
-        print(url);
-        return Mapper(model, _res.data);
-    }
-
-    if (model == null) {
-      return _res;
-    } else {
-      return Mapper(model, _res.data);
-    }
-    
-  }
-
-  Future<dynamic> download(
-      {@required String? url,
-        var body,
-        Mapper? model,
-        var headers,
-        bool withToken = true}) async {
-    Response<ResponseBody>? _res;
-    try {
-      if (headers != null) {
-        _dio!.options.headers = headers;
-      } else {
-        if (withToken) {
-          String _token =
-          await SharedHelper.sharedHelper!.readString(CachingKey.TOKEN);
-          // String lang = await allTranslations.getPreferredLanguage();
-          log('Token is >>> $_token');
-          _dio!.options.headers = {
-            'Authorization': 'Bearer $_token',
-            'Accept': 'application/json',
-            'Content-Type' : 'application/pdf',
-            'Accept-Language': "US",//lang == 'en' ? "US" : "AR"
+            'Content-Type': 'application/pdf',
+            'Accept-Language': "US", //lang == 'en' ? "US" : "AR"
           };
         }
       }
       if (body != null) {
-        _res = await _dio!.post(url!, data: body ,
-          onReceiveProgress : showDownloadProgress , options: Options(
-            responseType: ResponseType.stream,
-            followRedirects: false,
-            validateStatus: (status) {
-              return status! < 500;
-            }),);
+        _res = await _dio!.post(
+          url!,
+          data: body,
+          onReceiveProgress: showDownloadProgress,
+          options: Options(
+              responseType: ResponseType.stream,
+              followRedirects: false,
+              validateStatus: (status) {
+                return status! < 500;
+              }),
+        );
       } else {
         _res = await _dio!.post(url!);
       }
@@ -177,16 +191,19 @@ class NetworkHelper {
       log('Exception >>>  ${e.response.toString()}');
       log('e >>>  ${e.message}');
       if (e.message.contains('Network is unreachable')) {
-        return AppCore.showSnackBar(notification: AppNotification(message:'Network is unreachable'));
+        return AppCore.showSnackBar(
+            notification: AppNotification(message: 'Network is unreachable'));
       }
     }
-    return _res ;
+    return _res;
   }
+
   void showDownloadProgress(received, total) {
     if (total != -1) {
       print((received / total * 100).toStringAsFixed(0) + "%");
     }
   }
+
   Future<dynamic> put(
       {@required String? url,
       var body,
@@ -197,7 +214,6 @@ class NetworkHelper {
     try {
       if (headers != null) {
         _dio!.options.headers = headers;
-        
       } else {
         if (withToken) {
           String _token =
@@ -207,12 +223,12 @@ class NetworkHelper {
           _dio!.options.headers = {
             'Authorization': 'Bearer $_token',
             'Accept': 'application/json',
-            'Content-Type' : 'application/pdf',
-            'Accept-Language': "US",//lang == 'en' ? "US" : "AR"
+            'Content-Type': 'application/pdf',
+            'Accept-Language': "US", //lang == 'en' ? "US" : "AR"
           };
         }
       }
-    
+
       if (body != null) {
         _res = await _dio!.put(url!, data: body);
       } else {
@@ -228,7 +244,11 @@ class NetworkHelper {
       log('Exception >>>  ${e.response.toString()}');
       log('e >>>  ${e.message}');
       if (e.message.contains('Network is unreachable')) {
-        return AppCore.showSnackBar(notification: AppNotification(message: 'Network is unreachable',backgroundColor: AppColors.inActive,iconName: "fill-close-circle"));
+        return AppCore.showSnackBar(
+            notification: AppNotification(
+                message: 'Network is unreachable',
+                backgroundColor: AppColors.inActive,
+                iconName: "fill-close-circle"));
       }
 
       if (_res == null)

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/helpers/app_colors.dart';
+import 'package:graduation_project/services/registration/bloc/user_bloc.dart';
 import 'package:graduation_project/services/registration/repo/signIn_repo.dart';
 import 'package:rxdart/rxdart.dart';
 import '../../../core/app_core.dart';
@@ -8,6 +9,7 @@ import '../../../core/app_events.dart';
 import '../../../core/app_notification.dart';
 import '../../../core/app_states.dart';
 import '../../../core/validator.dart';
+import '../../../network/shared_helper.dart';
 import '../../../router/navigator.dart';
 import '../../../router/routes.dart';
 import '../models/user_model.dart';
@@ -76,7 +78,10 @@ class RegisterBloc extends Bloc<AppEvent, AppState> {
           });
           UserModel model = await RegistrationRepo.register(data: data);
           if (model.errors == null && model.message == null) {
-            CustomNavigator.push(Routes.main);
+            SharedHelper.sharedHelper!
+              .saveUser(model, remember: false, password: password.valueOrNull);
+              UserBloc.instance.add(Click());
+          CustomNavigator.push(Routes.main, clean: true);
             //arguments: VerificationModel(model.user!.email!, model.user!.verificationCode!));
             AppCore.showSnackBar(notification: AppNotification(message: "You logged in successfully", backgroundColor: AppColors.active, iconName: "check-circle"));
             yield Done();

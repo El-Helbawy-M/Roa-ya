@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -128,12 +129,13 @@ class _InputPageState extends State<InputPage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 4),
-                        child: StreamBuilder<MultipartFile?>(
+                        child: StreamBuilder<File?>(
                             stream: UploaderBloc.instance.imageStream,
                             builder: (context, snapshot) {
                               return UploadImage(
                                 label: "Upload Image",
                                 updatedImage: UploaderBloc.instance.updateImage,
+                                selectedImage: UploaderBloc.instance.image.valueOrNull,
                                 isFilled: UploaderBloc.instance.image.valueOrNull != null,
                                 hasError: snapshot.hasError,
                                 errorText: (snapshot.error ?? "") as String,
@@ -160,18 +162,7 @@ class _InputPageState extends State<InputPage> {
                                   log("${_formKey.currentState!.validate()}  ${snapshot.data}");
                                   if (snapshot.hasData) {
                                     if (snapshot.data!) {
-                                      // UploaderBloc.instance.add(Post());
-                                      showModalBottomSheet(
-                                        context: CustomNavigator.navigatorState.currentContext!,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(25),
-                                          ),
-                                        ),
-                                        builder: (context) => ResultBottemSheet(
-                                          patienName: UploaderBloc.instance.patientName.valueOrNull!.name ?? "",
-                                        ),
-                                      );
+                                      UploaderBloc.instance.add(Post());
                                     }
                                   }
                                 },

@@ -10,8 +10,10 @@ class ResultBottemSheet extends StatelessWidget {
   const ResultBottemSheet({
     Key? key,
     required this.patienName,
+    required this.diseasesName,
   }) : super(key: key);
   final String patienName;
+  final String diseasesName;
   @override
   Widget build(BuildContext context) {
     return Container(

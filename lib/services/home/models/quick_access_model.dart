@@ -15,9 +15,6 @@ class QuickAccessOptions {
 
   List<Function()> actions = [
     () => CustomNavigator.push(Routes.diseaseDetection),
-    () {
-      CustomNavigator.push(Routes.onboarding);
-      return SharedHelper.sharedHelper!.logout();
-    },
+    () {},
   ];
 }

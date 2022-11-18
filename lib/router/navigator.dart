@@ -3,6 +3,7 @@ import 'package:graduation_project/router/routes.dart';
 import 'package:graduation_project/services/disease_detection/pages/input_page.dart';
 import 'package:graduation_project/services/disease_detection/pages/output_page.dart';
 import 'package:graduation_project/services/onboarding/pages/onboarding_page.dart';
+import 'package:graduation_project/services/profile/pages/profile_page.dart';
 import 'package:graduation_project/services/registration/pages/forget_bassword_screen.dart';
 import 'package:graduation_project/services/registration/pages/reset_password_screen.dart';
 import 'package:graduation_project/services/registration/pages/sign_in_screen.dart';
@@ -110,6 +111,17 @@ class CustomNavigator {
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
               const OutputPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return SlideTransition(
+              position: animation.drive(tween),
+              child: child,
+            );
+          },
+        );
+      case Routes.profile:
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const ProfilePage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return SlideTransition(
               position: animation.drive(tween),

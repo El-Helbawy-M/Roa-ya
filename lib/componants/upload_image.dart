@@ -199,7 +199,7 @@ import '../helpers/image_picker_helper.dart';
 import 'custom_button.dart';
 
 class UploadImage extends StatefulWidget {
-  final Function(MultipartFile?)? updatedImage;
+  final Function(File?)? updatedImage;
 
   final ValueChanged? updateFile;
   final bool isFilled;
@@ -236,7 +236,7 @@ class _UploadImageState extends State<UploadImage> {
               ImagePickerHelper.showOption(onGet: (file) async {
                 setState(() => image = file);
                 var multipartImage = await MultipartFile.fromFile(image!.path);
-                widget.updatedImage!(multipartImage);
+                widget.updatedImage!(file);
                 if (widget.updateFile != null) widget.updateFile!(image);
               });
             },
@@ -315,7 +315,7 @@ class _UploadImageState extends State<UploadImage> {
                                 ImagePickerHelper.showOption(onGet: (file) async {
                                   setState(() => image = file);
                                   var multipartImage = await MultipartFile.fromFile(image!.path);
-                                  widget.updatedImage!(multipartImage);
+                                  widget.updatedImage!(file);
                                   if (widget.updateFile != null) widget.updateFile!(image);
                                 });
                               },
