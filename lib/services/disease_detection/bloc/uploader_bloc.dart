@@ -62,13 +62,13 @@ class UploaderBloc extends Bloc<AppEvent, AppState> {
     try {
       if (event is Post) {
         //condations.valueOrNull!
+        MultipartFile file = await MultipartFile.fromFile(image.valueOrNull!.path); 
         FormData data = FormData.fromMap({
-          "attachment": MultipartFile.fromFile(image.valueOrNull!.path),
+          "attachment": file,
         });
-        updateImage(image.valueOrNull);
         ResultModel model = await UploaderRepo.upload(data: data);
         if (model.results!.isNotEmpty) {
-          clear();
+          
           showModalBottomSheet(
             context: CustomNavigator.navigatorState.currentContext!,
             shape: const RoundedRectangleBorder(
@@ -81,7 +81,8 @@ class UploaderBloc extends Bloc<AppEvent, AppState> {
                   UploaderBloc.instance.patientName.valueOrNull!.name ?? "",
                   diseasesName: model.results??"there is no results",
             ),
-          );
+          ).then((value) => 
+          clear());
           yield Done();
         } else {
           AppCore.showSnackBar(

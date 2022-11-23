@@ -52,7 +52,7 @@ class ResultBottemSheet extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("DT7",style: AppTextStyles.w700.copyWith(fontSize: 32,color: AppColors.mainColor),),
+                Text(diseasesName,style: AppTextStyles.w700.copyWith(fontSize: 32,color: AppColors.mainColor),),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical:18),
                   child: Text(patienName, style: AppTextStyles.w500.copyWith(fontSize: 24,color: Colors.black),),

@@ -40,7 +40,7 @@ class ProfilePage extends StatelessWidget {
                   title: "Profile",
                   suffixIcon: "setting_more",
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: 48),
                 Expanded(
                   child: BlocBuilder<UserBloc, AppState>(
                     builder: (context, state) {

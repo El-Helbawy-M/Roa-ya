@@ -100,7 +100,6 @@ class NetworkHelper {
       }
       print("hello");
       if (body != null) {
-        print("object");
         print('==: Body => ${body}');
         _res = await _dio!.post(url!, data: body);
       } else {

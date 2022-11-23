@@ -109,12 +109,15 @@ class _OnboardingPageState extends State<OnboardingPage> {
                                   children: [
                                     Text(
                                       contentModel.titles[index],
+                                      
+                                      textAlign: TextAlign.center,
                                       style: AppTextStyles.w500
                                           .copyWith(fontSize: 24),
                                     ),
                                     const SizedBox(height: 8),
                                     Text(
                                       contentModel.values[index],
+                                      textAlign: TextAlign.center,
                                       style: AppTextStyles.w300
                                           .copyWith(fontSize: 15),
                                     ),
