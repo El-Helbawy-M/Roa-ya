@@ -1,12 +1,12 @@
 class ContentModel{
   List<String> titles = [
     "The best specialists!",
-    "Fast proccessing",
-    "Higt accurecy",
+    "Choose the doctor you want",
+    "Your health is our life",
   ];
   List<String> values = [
     "Treatment from the best specialists from Egypt",
-    "Taking images and response faster",
-    "Giving raliable answers to you!",
+    "Get the option to choose a specialist according to your specifications",
+    "For the whole family",
   ];
 }
