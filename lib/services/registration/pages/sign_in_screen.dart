@@ -128,7 +128,6 @@ class _SignInScreenState extends State<SignInScreen> {
                             stream: SignInBloc.instance.submitStream,
                             builder: (context, snapshot) {
                               return CustomBtn(
-                                key: Key("login_btn"),
                                 text: getLang("Log_in"),
                                 onTap: () {
                                   log("${_formKey.currentState!.validate()}  ${snapshot.data}");

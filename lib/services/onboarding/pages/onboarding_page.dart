@@ -37,7 +37,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
               clipper: OvalBottomBorderClipper(),
               child: Container(
                 width: MediaHelper.width,
-                height:MediaHelper.height * .5,
+                height: MediaHelper.height * .5,
                 color: const Color(0xff454CFF),
               ),
             ),
@@ -75,13 +75,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
                                   child: RichText(
                                     text: TextSpan(
                                       text: "Because we",
-                                      style: AppTextStyles.w300
-                                          .copyWith(fontSize: 16,color: Colors.white),
+                                      style: AppTextStyles.w300.copyWith(fontSize: 16, color: Colors.white),
                                       children: [
                                         TextSpan(
                                           text: " Care",
-                                          style: AppTextStyles.w700
-                                              .copyWith(fontSize: 16,color: Colors.white),
+                                          style: AppTextStyles.w700.copyWith(fontSize: 16, color: Colors.white),
                                         )
                                       ],
                                     ),
@@ -109,17 +107,14 @@ class _OnboardingPageState extends State<OnboardingPage> {
                                   children: [
                                     Text(
                                       contentModel.titles[index],
-                                      
                                       textAlign: TextAlign.center,
-                                      style: AppTextStyles.w500
-                                          .copyWith(fontSize: 24),
+                                      style: AppTextStyles.w500.copyWith(fontSize: 24),
                                     ),
                                     const SizedBox(height: 8),
                                     Text(
                                       contentModel.values[index],
                                       textAlign: TextAlign.center,
-                                      style: AppTextStyles.w300
-                                          .copyWith(fontSize: 15),
+                                      style: AppTextStyles.w300.copyWith(fontSize: 15),
                                     ),
                                   ],
                                 ),
@@ -133,19 +128,15 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         children: List.generate(
                             contentModel.titles.length,
                             (value) => Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 4.5),
-                                  child: AnimatedPageIndicatorOnboarding(
-                                      check: index == value),
+                                  padding: const EdgeInsets.symmetric(horizontal: 4.5),
+                                  child: AnimatedPageIndicatorOnboarding(check: index == value),
                                 )),
                       ),
                       SizedBox(
                         height: 20,
                       ),
                       CustomBtn(
-                        text: index == contentModel.titles.length - 1
-                            ? "Get Started"
-                            : "Next",
+                        text: index == contentModel.titles.length - 1 ? "Get Started" : "Next",
                         onTap: () {
                           if (index == contentModel.titles.length - 1) {
                             CustomNavigator.push(Routes.login);
@@ -162,7 +153,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         txtFontSize: 24,
                       ),
                       SizedBox(height: 16),
-                      if (!(index == contentModel.titles.length - 1)) Align(
+                      Align(
                         alignment: Alignment.centerRight,
                         child: InkWell(
                           onTap: () {
@@ -175,14 +166,18 @@ class _OnboardingPageState extends State<OnboardingPage> {
                               );
                             });
                           },
-                          child: Text(
-                            "Skip",
-                            style: AppTextStyles.w600.copyWith(
-                                fontSize: 16, color: AppColors.greyText),
+                          child: AnimatedCrossFade(
+                            crossFadeState: !(index == contentModel.titles.length - 1) ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                            duration: Duration(milliseconds: 400),
+                            secondChild: const SizedBox(height: 0),
+                            firstChild: Text(
+                              "Skip",
+                              style: AppTextStyles.w600.copyWith(fontSize: 16, color: AppColors.greyText),
+                            ),
                           ),
                         ),
-                      )
-                      ,SizedBox(height: 16),
+                      ),
+                      SizedBox(height: 16),
                     ],
                   ),
                 ),
@@ -194,6 +189,3 @@ class _OnboardingPageState extends State<OnboardingPage> {
     );
   }
 }
-
-
-
