@@ -15,7 +15,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:graduation_project/config/bloc_providers.dart';
 import 'package:graduation_project/core/localization.dart';
 import 'package:graduation_project/core/validator.dart';
-import 'package:graduation_project/network/shared_helper.dart';
+import 'package:graduation_project/helpers/shared_helper.dart';
 import 'package:graduation_project/router/navigator.dart';
 import 'package:graduation_project/router/routes.dart';
 import 'package:graduation_project/services/registration/bloc/signIn_bloc.dart';
@@ -167,4 +167,3 @@ void main() {
 
   // });
 }
-

@@ -3,7 +3,7 @@ import 'package:graduation_project/services/registration/bloc/user_bloc.dart';
 
 import '../../../core/app_events.dart';
 import '../../../core/app_states.dart';
-import '../../../network/shared_helper.dart';
+import '../../../helpers/shared_helper.dart';
 import '../../../router/navigator.dart';
 import '../../../router/routes.dart';
 

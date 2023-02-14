@@ -10,14 +10,14 @@ import 'package:rxdart/rxdart.dart';
 import '../../../core/app_core.dart';
 import '../../../core/app_notification.dart';
 import '../../../core/validator.dart';
-import '../../../network/shared_helper.dart';
+import '../../../helpers/app_error_handeler.dart';
+import '../../../helpers/shared_helper.dart';
 import '../../../router/navigator.dart';
 import '../../../router/routes.dart';
 import '../models/user_model.dart';
 
 class SignInBloc extends Bloc<AppEvent, AppState> {
-  static SignInBloc get instance =>
-      BlocProvider.of(CustomNavigator.navigatorState.currentContext!);
+  static SignInBloc get instance => BlocProvider.of(CustomNavigator.navigatorState.currentContext!);
 
   SignInBloc() : super(Start());
   final email = BehaviorSubject<String?>();
@@ -33,10 +33,8 @@ class SignInBloc extends Bloc<AppEvent, AppState> {
 
   Stream<String?> get passwordStream => password.stream.asBroadcastStream();
   Stream<bool?> get rememberMeStream => rememberMe.stream.asBroadcastStream();
-  Stream<bool> get submitStream =>
-      Rx.combineLatest2(emailStream, passwordStream, (n, p) {
-        if (EmailValidator.emailValidator(n as String?) == null &&
-            PasswordValidator.passwordValidator(p as String?) == null) {
+  Stream<bool> get submitStream => Rx.combineLatest2(emailStream, passwordStream, (n, p) {
+        if (EmailValidator.emailValidator(n as String?) == null && PasswordValidator.passwordValidator(p as String?) == null) {
           return true;
         }
         return false;
@@ -67,9 +65,8 @@ class SignInBloc extends Bloc<AppEvent, AppState> {
           ),
         );
         if (model.errors == null && model.message == null) {
-          SharedHelper.sharedHelper!
-              .saveUser(model, remember: false, password: password.valueOrNull);
-              UserBloc.instance.add(Click());
+          SharedHelper.sharedHelper!.saveUser(model, remember: false, password: password.valueOrNull);
+          UserBloc.instance.add(Click());
           CustomNavigator.push(Routes.main, clean: true);
           clear();
           AppCore.showSnackBar(
@@ -79,25 +76,15 @@ class SignInBloc extends Bloc<AppEvent, AppState> {
               iconName: "check-circle",
             ),
           );
-          
-        yield Done();
-        }
-        else {
-            AppCore.showSnackBar(
-                notification: AppNotification(
-                    message: model.message??(model.errors!.email ?? (model.errors!.password ?? "")),
-                    backgroundColor: AppColors.inActive,
-                    iconName: "fill-close-circle"));
 
-            yield Error();
-          }
+          yield Done();
+        } else {
+          ErrorHandler(title: "Authentaction Error", message: model.message ?? "").showDefaultErrorMessage();
+          yield Error();
+        }
       }
     } catch (e) {
-      AppCore.showSnackBar(
-          notification: AppNotification(
-              message: e.toString(),
-              backgroundColor: AppColors.inActive,
-              iconName: "fill-close-circle"));
+      ErrorHandler(title: "Authentaction Error", message: "Something is wrong, please try again later").showDefaultErrorMessage();
       yield Error();
     }
   }

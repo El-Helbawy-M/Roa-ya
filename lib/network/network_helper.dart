@@ -6,7 +6,7 @@ import 'package:graduation_project/helpers/app_colors.dart';
 import '../core/app_core.dart';
 import '../core/app_notification.dart';
 import 'mapper.dart';
-import 'shared_helper.dart';
+import '../helpers/shared_helper.dart';
 
 class NetworkHelper {
   static NetworkHelper? _instance;
@@ -14,8 +14,7 @@ class NetworkHelper {
 
   NetworkHelper._internal();
 
-  factory NetworkHelper(
-      {String? urlCode, String? schema, bool change = false}) {
+  factory NetworkHelper({String? urlCode, String? schema, bool change = false}) {
     if (_instance == null) {
       // NetworkHelper.generateBaseUrl(urlCode: urlCode, schema: schema);
       _instance = NetworkHelper._internal();
@@ -25,17 +24,12 @@ class NetworkHelper {
     return _instance!;
   }
 
-  Future<dynamic> get(
-      {@required String? url,
-      Mapper? model,
-      Map<String, dynamic>? query,
-      var headers}) async {
+  Future<dynamic> get({@required String? url, Mapper? model, Map<String, dynamic>? query, var headers}) async {
     Response? _res;
     if (headers != null) {
       _dio!.options.headers = headers;
     } else {
-      String _token =
-          await SharedHelper.sharedHelper!.readString(CachingKey.TOKEN);
+      String _token = await SharedHelper.sharedHelper!.readString(CachingKey.TOKEN);
       // String lang = await allTranslations.getPreferredLanguage();
       _dio!.options.headers = {
         'Authorization': 'Bearer $_token',
@@ -54,10 +48,7 @@ class NetworkHelper {
     } on DioError catch (e) {
       _res = e.response;
       log('Exception >>>  ${e.response.toString()}');
-      if (_res == null)
-        return Response(
-            data: {"status": 0, "message": "NO INTERNET CONNECTION"},
-            requestOptions: RequestOptions(path: ''));
+      if (_res == null) return Response(data: {"status": 0, "message": "NO INTERNET CONNECTION"}, requestOptions: RequestOptions(path: ''));
     }
 
     if (model == null) {
@@ -67,25 +58,14 @@ class NetworkHelper {
     }
   }
 
-  Future<dynamic> post(
-      {@required String? url,
-      var body,
-      Mapper? model,
-      var headers,
-      String? base,
-      bool withToken = true}) async {
+  Future<dynamic> post({@required String? url, var body, Mapper? model, var headers, bool withToken = true}) async {
     Response? _res;
     try {
-      if (base != null) {
-        _dio!.options.baseUrl = base;
-      }
       if (headers != null) {
         _dio!.options.headers = headers;
       } else {
-
         if (withToken) {
-          String _token =
-              await SharedHelper.sharedHelper!.readString(CachingKey.TOKEN);
+          String _token = await SharedHelper.sharedHelper!.readString(CachingKey.TOKEN);
           // String lang = await allTranslations.getPreferredLanguage();
           log('Token is >>> $_token');
           _dio!.options.headers = {
@@ -95,38 +75,28 @@ class NetworkHelper {
           };
         }
       }
-      if (base != null) {
-        _dio!.options.baseUrl = base;
-      }
-      print("hello");
+      log("hello");
       if (body != null) {
         print('==: Body => ${body}');
         _res = await _dio!.post(url!, data: body);
       } else {
         _res = await _dio!.post(url!);
       }
-      print('==: End point => ${_dio!.options.baseUrl}$url');
-      print('Response >>> ${_res}');
+      log('==: End point => ${_dio!.options.baseUrl}$url');
+      log('Response >>> ${_res}');
 
       // if (base != null)
     } on DioError catch (e) {
       _res = e.response;
-      print('==: End point => ${_dio!.options.baseUrl}$url');
-      print('Exception >>>  ${e.response.toString()}');
-      print('e >>>  ${e.message}');
+      log('==: End point => ${_dio!.options.baseUrl}$url');
+      log('Exception >>>  ${e.response.toString()}');
+      log('e >>>  ${e.message}');
       if (e.message.contains('Network is unreachable')) {
-        return AppCore.showSnackBar(
-            notification: AppNotification(
-                message: 'Network is unreachable',
-                backgroundColor: AppColors.inActive,
-                iconName: "fill-close-circle"));
+        return AppCore.showSnackBar(notification: AppNotification(message: 'Network is unreachable', backgroundColor: AppColors.inActive, iconName: "fill-close-circle"));
       }
-      
-    _dio!.options.baseUrl = baseUrl;
+
       if (_res == null)
-        return Response(
-            data: {"status": 0, "message": "NO INTERNET CONNECTION"},
-            requestOptions: RequestOptions(path: ''));
+        return Response(data: {"status": 0, "message": "NO INTERNET CONNECTION"}, requestOptions: RequestOptions(path: ''));
       else if (model == null)
         return _res;
       else
@@ -141,20 +111,14 @@ class NetworkHelper {
     }
   }
 
-  Future<dynamic> download(
-      {@required String? url,
-      var body,
-      Mapper? model,
-      var headers,
-      bool withToken = true}) async {
+  Future<dynamic> download({@required String? url, var body, Mapper? model, var headers, bool withToken = true}) async {
     Response<ResponseBody>? _res;
     try {
       if (headers != null) {
         _dio!.options.headers = headers;
       } else {
         if (withToken) {
-          String _token =
-              await SharedHelper.sharedHelper!.readString(CachingKey.TOKEN);
+          String _token = await SharedHelper.sharedHelper!.readString(CachingKey.TOKEN);
           // String lang = await allTranslations.getPreferredLanguage();
           log('Token is >>> $_token');
           _dio!.options.headers = {
@@ -190,8 +154,7 @@ class NetworkHelper {
       log('Exception >>>  ${e.response.toString()}');
       log('e >>>  ${e.message}');
       if (e.message.contains('Network is unreachable')) {
-        return AppCore.showSnackBar(
-            notification: AppNotification(message: 'Network is unreachable'));
+        return AppCore.showSnackBar(notification: AppNotification(message: 'Network is unreachable'));
       }
     }
     return _res;
@@ -203,20 +166,14 @@ class NetworkHelper {
     }
   }
 
-  Future<dynamic> put(
-      {@required String? url,
-      var body,
-      Mapper? model,
-      var headers,
-      bool withToken = true}) async {
+  Future<dynamic> put({@required String? url, var body, Mapper? model, var headers, bool withToken = true}) async {
     Response? _res;
     try {
       if (headers != null) {
         _dio!.options.headers = headers;
       } else {
         if (withToken) {
-          String _token =
-              await SharedHelper.sharedHelper!.readString(CachingKey.TOKEN);
+          String _token = await SharedHelper.sharedHelper!.readString(CachingKey.TOKEN);
           // String lang = await allTranslations.getPreferredLanguage();
           log('Token is >>> $_token');
           _dio!.options.headers = {
@@ -243,17 +200,11 @@ class NetworkHelper {
       log('Exception >>>  ${e.response.toString()}');
       log('e >>>  ${e.message}');
       if (e.message.contains('Network is unreachable')) {
-        return AppCore.showSnackBar(
-            notification: AppNotification(
-                message: 'Network is unreachable',
-                backgroundColor: AppColors.inActive,
-                iconName: "fill-close-circle"));
+        return AppCore.showSnackBar(notification: AppNotification(message: 'Network is unreachable', backgroundColor: AppColors.inActive, iconName: "fill-close-circle"));
       }
 
       if (_res == null)
-        return Response(
-            data: {"status": 0, "message": "NO INTERNET CONNECTION"},
-            requestOptions: RequestOptions(path: ''));
+        return Response(data: {"status": 0, "message": "NO INTERNET CONNECTION"}, requestOptions: RequestOptions(path: ''));
       else if (model == null)
         return _res;
       else

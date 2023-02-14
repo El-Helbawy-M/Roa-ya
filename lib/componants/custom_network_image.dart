@@ -14,19 +14,7 @@ class CustomNetworkImage {
   }
 
   ///Container Network Image with border
-  static Widget containerNewWorkImage(
-      {String image = "",
-      double? radius,
-      String? defaultImage,
-      EdgeInsetsGeometry? padding,
-      double? height,
-      double? width,
-      String? customImage,
-      BoxFit? fit,
-      isPlaceHolder = true,
-      double? widthOfShimmer,
-      Widget? imageWidget,
-      bool edges = false}) {
+  static Widget containerNewWorkImage({String image = "", double? radius, String? defaultImage, EdgeInsetsGeometry? padding, double? height, double? width, String? customImage, BoxFit? fit, isPlaceHolder = true, double? widthOfShimmer, Widget? imageWidget, bool edges = false}) {
     return CachedNetworkImage(
       imageUrl: image,
       fadeInDuration: const Duration(seconds: 1),
@@ -35,11 +23,7 @@ class CustomNetworkImage {
         width: width ?? 40,
         height: height ?? 40,
         decoration: BoxDecoration(
-          borderRadius: edges
-              ? BorderRadius.only(
-                  topRight: Radius.circular(radius ?? 10),
-                  topLeft: Radius.circular(radius ?? 10))
-              : BorderRadius.all(Radius.circular(radius ?? 10.0)),
+          borderRadius: edges ? BorderRadius.only(topRight: Radius.circular(radius ?? 10), topLeft: Radius.circular(radius ?? 10)) : BorderRadius.all(Radius.circular(radius ?? 10.0)),
           image: DecorationImage(
             fit: fit ?? BoxFit.contain,
             image: Image.asset(
@@ -47,7 +31,6 @@ class CustomNetworkImage {
               fit: fit ?? BoxFit.contain,
             ).image,
           ),
-          
         ),
         padding: padding,
         child: imageWidget,
@@ -58,7 +41,7 @@ class CustomNetworkImage {
                 width: width ?? 40,
                 height: height ?? 40,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(radius ??15),
+                  borderRadius: BorderRadius.circular(radius ?? 15),
                   // edges
                   //     ? BorderRadius.only(
                   //         topRight: Radius.circular(radius ?? 10),
@@ -68,7 +51,7 @@ class CustomNetworkImage {
                     fit: fit ?? BoxFit.contain,
                     image: Image.asset(
                       defaultImage ?? "assets/app_icon.png",
-                      fit: fit??BoxFit.contain,
+                      fit: fit ?? BoxFit.contain,
                     ).image,
                   ),
                 ),
@@ -82,11 +65,7 @@ class CustomNetworkImage {
           height: height ?? 40,
           padding: padding,
           decoration: BoxDecoration(
-            borderRadius: edges
-                ? BorderRadius.only(
-                    topRight: Radius.circular(radius ?? 10),
-                    topLeft: Radius.circular(radius ?? 10))
-                : BorderRadius.all(Radius.circular(radius ?? 10.0)),
+            borderRadius: edges ? BorderRadius.only(topRight: Radius.circular(radius ?? 10), topLeft: Radius.circular(radius ?? 10)) : BorderRadius.all(Radius.circular(radius ?? 10.0)),
             image: DecorationImage(fit: fit ?? BoxFit.contain, image: provider),
           ),
           child: imageWidget,
@@ -96,14 +75,7 @@ class CustomNetworkImage {
   }
 
   /// Circle Network Image
-  static Widget circleNewWorkImage(
-      {String? image,
-      double? radius,
-      String? defaultImage,
-      bool isDefaultSvg = true,
-      backGroundColor,
-      color}) {
-        
+  static Widget circleNewWorkImage({String? image, double? radius, String? defaultImage, bool isDefaultSvg = true, backGroundColor, color}) {
     return CachedNetworkImage(
       imageUrl: image == "" || image == null ? "https://" : image,
       fit: BoxFit.cover,
@@ -111,15 +83,11 @@ class CustomNetworkImage {
       errorWidget: (a, c, b) => Container(
         height: radius! * 2,
         width: radius * 2,
-        decoration: BoxDecoration(
-            border: color != null ? Border.all(color: color, width: 1) : null,
-            shape: BoxShape.circle),
+        decoration: BoxDecoration(border: color != null ? Border.all(color: color, width: 1) : null, shape: BoxShape.circle),
         child: CircleAvatar(
           radius: radius,
           backgroundColor: backGroundColor ?? Colors.white,
-          backgroundImage:
-              Image.asset("assets/app_icon.png", fit: BoxFit.contain)
-                  .image,
+          backgroundImage: Image.asset("assets/app_icon.png", fit: BoxFit.contain).image,
         ),
       ),
       fadeInDuration: const Duration(seconds: 1),
@@ -127,9 +95,7 @@ class CustomNetworkImage {
       placeholder: (context, url) => Container(
         height: radius! * 2,
         width: radius * 2,
-        decoration: BoxDecoration(
-            border: color != null ? Border.all(color: color, width: 1) : null,
-            shape: BoxShape.circle),
+        decoration: BoxDecoration(border: color != null ? Border.all(color: color, width: 1) : null, shape: BoxShape.circle),
         child: CircleAvatar(
           radius: radius,
           backgroundColor: backGroundColor ?? Colors.white,
@@ -140,10 +106,7 @@ class CustomNetworkImage {
         return Container(
           height: radius! * 2,
           width: radius * 2,
-          
-          decoration: BoxDecoration(
-              border: color != null ? Border.all(color: color, width: 1) : null,
-              shape: BoxShape.circle),
+          decoration: BoxDecoration(border: color != null ? Border.all(color: color, width: 1) : null, shape: BoxShape.circle),
           child: CircleAvatar(
             backgroundImage: provider,
             radius: radius,
@@ -155,19 +118,11 @@ class CustomNetworkImage {
   }
 
   //Asset network Image
-  Widget imageNewWorkImage(
-      {String? image, String? defaultImage, double? height, double? width}) {
+  Widget imageNewWorkImage({String? image, String? defaultImage, double? height, double? width}) {
     return CachedNetworkImage(
       imageUrl: image == "" || image == null ? "https://" : image,
       //     fadeInDuration: Duration(seconds: 2),
-      errorWidget: (a, b, c) => Container(
-          height: height ?? 40,
-          width: width ?? 40,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image:
-                      Image.asset(defaultImage ?? "assets/logo.png").image))),
+      errorWidget: (a, b, c) => Container(height: height ?? 40, width: width ?? 40, decoration: BoxDecoration(image: DecorationImage(fit: BoxFit.cover, image: Image.asset(defaultImage ?? "assets/logo.png").image))),
       placeholder: (context, url) => Container(
           height: height ?? 40,
           width: width ?? 40,
@@ -178,11 +133,7 @@ class CustomNetworkImage {
               //         .image)
               )),
       imageBuilder: (context, provider) {
-        return Container(
-            height: height ?? 40,
-            width: width ?? 40,
-            decoration: BoxDecoration(
-                image: DecorationImage(fit: BoxFit.cover, image: provider)));
+        return Container(height: height ?? 40, width: width ?? 40, decoration: BoxDecoration(image: DecorationImage(fit: BoxFit.cover, image: provider)));
       },
     );
   }
