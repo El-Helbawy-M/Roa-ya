@@ -11,7 +11,7 @@ import '../../../core/app_core.dart';
 import '../../../core/app_notification.dart';
 import '../../../core/validator.dart';
 import '../../../helpers/app_error_handeler.dart';
-import '../../../network/shared_helper.dart';
+import '../../../helpers/shared_helper.dart';
 import '../../../router/navigator.dart';
 import '../../../router/routes.dart';
 import '../models/user_model.dart';

@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:graduation_project/config/bloc_providers.dart';
-import 'package:graduation_project/network/shared_helper.dart';
+import 'package:graduation_project/helpers/shared_helper.dart';
 import 'package:graduation_project/router/navigator.dart';
 import 'package:graduation_project/router/routes.dart';
 import 'package:graduation_project/services/disease_detection/pages/input_page.dart';
+import 'package:graduation_project/services/main_pages/main_page.dart';
 import 'package:graduation_project/services/onboarding/pages/onboarding_page.dart';
 
 import 'core/localization.dart';
@@ -31,16 +32,16 @@ class MyApp extends StatelessWidget {
           fontFamily: "inter",
         ),
         debugShowCheckedModeBanner: false,
-        initialRoute: Routes.splash,
-        // home: const InputPage(),
+        // initialRoute: Routes.splash,
+        home: const MainPage(),
         navigatorKey: CustomNavigator.navigatorState,
         navigatorObservers: [CustomNavigator.routeObserver],
         scaffoldMessengerKey: CustomNavigator.scaffoldState,
         onGenerateRoute: CustomNavigator.onCreateRoute,
-    
+
         // to tell the app what the language should support
         supportedLocales: const [Locale("en"), Locale("ar")],
-    
+
         // to tell the app what the components should follow the determined language
         localizationsDelegates: const [
           AppLocale.delegate,
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         locale: const Locale("en"),
-    
+
         // this is a callback, it's executed when the user open the app or change the localaization of the mobile
         // what is its jop?
         // : it cheks if what is the current language of the mobile and return it for the app to follow it
@@ -67,4 +68,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

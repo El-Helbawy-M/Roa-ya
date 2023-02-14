@@ -14,7 +14,7 @@ import 'package:graduation_project/services/registration/bloc/user_bloc.dart';
 import 'package:graduation_project/services/registration/models/user_model.dart';
 
 import '../../../helpers/app_media_query.dart';
-import '../../../network/shared_helper.dart';
+import '../../../helpers/shared_helper.dart';
 import '../../../router/navigator.dart';
 import '../../../router/routes.dart';
 import '../widgets/more_option.dart';

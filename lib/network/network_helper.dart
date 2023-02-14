@@ -6,7 +6,7 @@ import 'package:graduation_project/helpers/app_colors.dart';
 import '../core/app_core.dart';
 import '../core/app_notification.dart';
 import 'mapper.dart';
-import 'shared_helper.dart';
+import '../helpers/shared_helper.dart';
 
 class NetworkHelper {
   static NetworkHelper? _instance;
