@@ -8,6 +8,9 @@ import 'package:graduation_project/helpers/app_colors.dart';
 import 'package:graduation_project/helpers/app_media_query.dart';
 import 'package:graduation_project/helpers/app_text_styles.dart';
 
+import '../widgets/patient_folder_card.dart';
+import '../widgets/search_bar.dart';
+
 class PatientsFoldersPage extends StatelessWidget {
   const PatientsFoldersPage({super.key});
 
@@ -38,70 +41,10 @@ class PatientsFoldersPage extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
-                  SizedBox(height: 24),
+                  const SizedBox(height: 24),
                   ...List.generate(
                     6,
-                    (index) => Container(
-                      height: 124,
-                      width: MediaHelper.width,
-                      margin: const EdgeInsets.only(bottom: 16),
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(width: 1, color: AppColors.blaceHolderColor),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              CustomNetworkImage.circleNewWorkImage(
-                                radius: 24,
-                                image: "https://images.pexels.com/photos/189857/pexels-photo-189857.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-                              ),
-                              const SizedBox(width: 16),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Ahmed ali",
-                                    style: AppTextStyles.w600.copyWith(fontSize: 18),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    "Ahmedali@gmail.com",
-                                    style: AppTextStyles.w600.copyWith(fontSize: 14, color: AppColors.blaceHolderColor),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Row(
-                                  children: [
-                                    customImageIconSVG(imageName: "timer", color: AppColors.mainColor.withOpacity(.5)),
-                                    const SizedBox(width: 8),
-                                    Text("Visit time - 02:00PM", style: AppTextStyles.w500.copyWith(fontSize: 16, color: AppColors.lightGrey)),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: Row(
-                                  children: [
-                                    customImageIconSVG(imageName: "calendar", color: AppColors.mainColor.withOpacity(.5)),
-                                    const SizedBox(width: 8),
-                                    Text("12-2-20022", style: AppTextStyles.w500.copyWith(fontSize: 16, color: AppColors.lightGrey)),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                    (index) => PatientFolderCard(),
                   )
                 ],
               ),
@@ -109,41 +52,6 @@ class PatientsFoldersPage extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class SearchBar extends StatelessWidget {
-  const SearchBar({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 56,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(width: 1, color: AppColors.borderColor),
-        color: Colors.grey[50],
-      ),
-      child: Row(
-        children: [
-          const Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
-                focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
-                hintText: "Search with patient name",
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: customImageIconSVG(imageName: "search"),
-          )
-        ],
-      ),
     );
   }
 }

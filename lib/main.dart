@@ -32,8 +32,8 @@ class MyApp extends StatelessWidget {
           fontFamily: "inter",
         ),
         debugShowCheckedModeBanner: false,
-        // initialRoute: Routes.splash,
-        home: const MainPage(),
+        initialRoute: Routes.splash,
+        // home: const MainPage(),s
         navigatorKey: CustomNavigator.navigatorState,
         navigatorObservers: [CustomNavigator.routeObserver],
         scaffoldMessengerKey: CustomNavigator.scaffoldState,

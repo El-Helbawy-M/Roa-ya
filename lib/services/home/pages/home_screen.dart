@@ -1,28 +1,13 @@
-import 'dart:io';
-
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/componants/animated_widgets.dart';
-import 'package:graduation_project/componants/custom_icon.dart';
-import 'package:graduation_project/componants/custom_network_image.dart';
-import 'package:graduation_project/componants/shimmer/custom_shimmer.dart';
-import 'package:graduation_project/core/app_core.dart';
-import 'package:graduation_project/core/app_notification.dart';
 import 'package:graduation_project/core/app_states.dart';
-import 'package:graduation_project/helpers/app_colors.dart';
 import 'package:graduation_project/helpers/app_media_query.dart';
 import 'package:graduation_project/helpers/app_text_styles.dart';
-import 'package:graduation_project/router/routes.dart';
 import 'package:graduation_project/services/home/widgets/search_bar.dart';
 import 'package:graduation_project/services/home/widgets/section_title.dart';
 import 'package:graduation_project/services/registration/bloc/user_bloc.dart';
-import 'package:graduation_project/services/registration/models/user_model.dart';
-
-import '../../../componants/custom_arrow_back.dart';
-import '../../../router/navigator.dart';
 import '../widgets/latest_results_panel.dart';
-import '../widgets/main_option_btn.dart';
 import '../widgets/mock_page.dart';
 import '../widgets/profile_header.dart';
 import '../widgets/quick_actions_panel.dart';
@@ -42,7 +27,7 @@ class HomeScreen extends StatelessWidget {
               return ListAnimator(
                 data: [
                   const SizedBox(height: 24),
-                  const ProfileHeader(),
+                  // const ProfileHeader(),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
                     child: RichText(
@@ -67,13 +52,13 @@ class HomeScreen extends StatelessWidget {
                     child: SectionTitle(title: "Latest Results"),
                   ),
                   const Padding(
-                    padding: EdgeInsets.symmetric(horizontal:24),
+                    padding: EdgeInsets.symmetric(horizontal: 24),
                     child: LatestResultsPanel(),
                   ),
                 ],
               );
             } else {
-              return  HomeMockPage();
+              return HomeMockPage();
             }
           }),
         ),
@@ -81,4 +66,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
