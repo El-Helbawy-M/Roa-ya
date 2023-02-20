@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: ProviderList.providers,
       child: MaterialApp(
-        title: 'Roaya',
+        title: "Roa'ya",
         theme: ThemeData(
           primarySwatch: Colors.blue,
           fontFamily: "inter",
