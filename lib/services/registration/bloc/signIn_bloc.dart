@@ -2,13 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/core/app_events.dart';
 import 'package:graduation_project/core/app_states.dart';
-import 'package:graduation_project/helpers/app_colors.dart';
 import 'package:graduation_project/services/registration/bloc/user_bloc.dart';
 import 'package:graduation_project/services/registration/repo/signIn_repo.dart';
 import 'package:rxdart/rxdart.dart';
-
-import '../../../core/app_core.dart';
-import '../../../core/app_notification.dart';
 import '../../../core/validator.dart';
 import '../../../helpers/app_error_handeler.dart';
 import '../../../helpers/shared_helper.dart';
@@ -17,8 +13,6 @@ import '../../../router/routes.dart';
 import '../models/user_model.dart';
 
 class SignInBloc extends Bloc<AppEvent, AppState> {
-  static SignInBloc get instance => BlocProvider.of(CustomNavigator.navigatorState.currentContext!);
-
   SignInBloc() : super(Start());
   final email = BehaviorSubject<String?>();
   final password = BehaviorSubject<String?>();
@@ -64,24 +58,11 @@ class SignInBloc extends Bloc<AppEvent, AppState> {
             {"email": email.valueOrNull, "password": password.valueOrNull},
           ),
         );
-        if (model.errors == null && model.message == null) {
-          SharedHelper.sharedHelper!.saveUser(model, remember: false, password: password.valueOrNull);
-          UserBloc.instance.add(Click());
-          CustomNavigator.push(Routes.main, clean: true);
-          clear();
-          AppCore.showSnackBar(
-            notification: AppNotification(
-              message: "You logged in successfully",
-              backgroundColor: AppColors.active,
-              iconName: "check-circle",
-            ),
-          );
-
-          yield Done();
-        } else {
-          ErrorHandler(title: "Authentaction Error", message: model.message ?? "").showDefaultErrorMessage();
-          yield Error();
-        }
+        SharedHelper.sharedHelper!.saveUser(model, remember: false, password: password.valueOrNull);
+        UserBloc.instance.add(Click());
+        CustomNavigator.push(Routes.main, clean: true);
+        clear();
+        yield Done();
       }
     } catch (e) {
       ErrorHandler(title: "Authentaction Error", message: "Something is wrong, please try again later").showDefaultErrorMessage();

@@ -18,7 +18,7 @@ class ResultBottemSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaHelper.width,
-      height: 270,
+      height: 280,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(25),
@@ -40,9 +40,11 @@ class ResultBottemSheet extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
               children: [
-                Text("Detectrion Result",style: AppTextStyles.w700.copyWith(fontSize: 24,color: Colors.white),),
+                Text(
+                  "Detectrion Result",
+                  style: AppTextStyles.w700.copyWith(fontSize: 24, color: Colors.white),
+                ),
                 customImageIconSVG(imageName: "file_download_icon")
               ],
             ),
@@ -52,14 +54,26 @@ class ResultBottemSheet extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(diseasesName,style: AppTextStyles.w700.copyWith(fontSize: 32,color: AppColors.mainColor),),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical:18),
-                  child: Text(patienName, style: AppTextStyles.w500.copyWith(fontSize: 24,color: Colors.black),),
+                Text(
+                  diseasesName,
+                  style: AppTextStyles.w700.copyWith(fontSize: 32, color: AppColors.mainColor),
                 ),
-                Text("Detection Date",style: AppTextStyles.w500.copyWith(fontSize: 18,color: AppColors.lightHeader),),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 18),
+                  child: Text(
+                    patienName,
+                    style: AppTextStyles.w500.copyWith(fontSize: 24, color: Colors.black),
+                  ),
+                ),
+                Text(
+                  "Detection Date",
+                  style: AppTextStyles.w500.copyWith(fontSize: 18, color: AppColors.lightHeader),
+                ),
                 const SizedBox(height: 8),
-                Text(TimeOfDay.now().format(context),style: AppTextStyles.w600.copyWith(fontSize: 24,color: Colors.black),),
+                Text(
+                  TimeOfDay.now().format(context),
+                  style: AppTextStyles.w600.copyWith(fontSize: 24, color: Colors.black),
+                ),
               ],
             ),
           ),

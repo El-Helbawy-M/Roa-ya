@@ -22,7 +22,6 @@ class RegisterBloc extends Bloc<AppEvent, AppState> {
   final confirmPassword = BehaviorSubject<String?>();
   String generatedPassword = '';
   final condations = BehaviorSubject<bool?>();
-  static RegisterBloc get instance => BlocProvider.of(CustomNavigator.navigatorState.currentContext!);
 
   RegisterBloc() : super(Start()) {
     updateCondations(false);
@@ -78,17 +77,12 @@ class RegisterBloc extends Bloc<AppEvent, AppState> {
             "password": password.valueOrNull!,
           });
           UserModel model = await RegistrationRepo.register(data: data);
-          if (model.errors == null && model.message == null) {
-            SharedHelper.sharedHelper!.saveUser(model, remember: false, password: password.valueOrNull);
-            UserBloc.instance.add(Click());
-            CustomNavigator.push(Routes.main, clean: true);
-            //arguments: VerificationModel(model.user!.email!, model.user!.verificationCode!));
-            AppCore.showSnackBar(notification: AppNotification(message: "You logged in successfully", backgroundColor: AppColors.active, iconName: "check-circle"));
-            yield Done();
-          } else {
-            ErrorHandler(title: "Authentaction Error", message: model.message ?? "").showDefaultErrorMessage();
-            yield Error();
-          }
+          SharedHelper.sharedHelper!.saveUser(model, remember: false, password: password.valueOrNull);
+          UserBloc.instance.add(Click());
+          CustomNavigator.push(Routes.main, clean: true);
+          //arguments: VerificationModel(model.user!.email!, model.user!.verificationCode!));
+          AppCore.showSnackBar(notification: AppNotification(message: "You logged in successfully", backgroundColor: AppColors.active, iconName: "check-circle"));
+          yield Done();
         } else {
           AppCore.showSnackBar(notification: AppNotification(message: "Please agree to the terms", backgroundColor: AppColors.inActive, iconName: "fill-close-circle"));
           yield Error();

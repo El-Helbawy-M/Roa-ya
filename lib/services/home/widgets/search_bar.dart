@@ -13,50 +13,43 @@ class SearchBar extends StatelessWidget {
     this.suffixWidget,
     this.onChanged,
     this.onSuffixClick,
-    this.initialValue,
+    this.controller,
   }) : super(key: key);
 
   final bool goingDown;
   final Function(String)? onSearch;
   final Function(String)? onChanged;
   final Function()? onSuffixClick;
-  final String? initialValue;
   final Widget? suffixWidget;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedCrossFade(
-      crossFadeState: goingDown ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-      duration: Duration(milliseconds: 200),
-      firstChild: SizedBox(height: 0, width: MediaHelper.width),
-      secondChild: SizedBox(
-        height: 52,
-        child: TextFormField(
-          onChanged: onChanged,
-          onFieldSubmitted: onSearch,
-          initialValue: initialValue,
-          textInputAction: TextInputAction.search,
-          decoration: InputDecoration(
+    return SizedBox(
+      height: 52,
+      child: TextFormField(
+        onChanged: onChanged,
+        onFieldSubmitted: onSearch,
+        controller: controller,
+        textInputAction: TextInputAction.done,
+        decoration: InputDecoration(
             filled: true,
-            fillColor: AppColors.searchField,
-            contentPadding: EdgeInsets.symmetric(horizontal: 16),
-              prefixIcon: Padding(
-                padding: const EdgeInsets.all(15),
-                child: customImageIconSVG(imageName: "search", color: AppColors.hint),
-              ),
-              suffixIcon: suffixWidget,
-              hintText: "Search",
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide.none
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide.none
-              ),
-              hintStyle: AppTextStyles.w400.copyWith(fontSize: 14, color: AppColors.hint)),
-        ),
+            fillColor: Colors.white,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+            suffixIcon: Padding(
+              padding: const EdgeInsets.all(15),
+              child: customImageIconSVG(imageName: "search", color: AppColors.hint),
+            ),
+            enabledBorder: const OutlineInputBorder(borderSide: BorderSide.none),
+            focusedBorder: const OutlineInputBorder(borderSide: BorderSide.none),
+            hintText: "Search",
+            hintStyle: AppTextStyles.w400.copyWith(fontSize: 14, color: AppColors.hint)),
       ),
     );
   }
 }
+
+
+//enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: AppColors.borderColor)),
+// focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: AppColors.borderColor)),
+              

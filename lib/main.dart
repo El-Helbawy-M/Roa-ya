@@ -8,6 +8,8 @@ import 'package:graduation_project/router/routes.dart';
 import 'package:graduation_project/services/disease_detection/pages/input_page.dart';
 import 'package:graduation_project/services/main_pages/main_page.dart';
 import 'package:graduation_project/services/onboarding/pages/onboarding_page.dart';
+import 'package:graduation_project/services/patients_folders/pages/patients_folders_list_page.dart';
+import 'package:graduation_project/services/registration/bloc/user_bloc.dart';
 
 import 'core/localization.dart';
 
@@ -23,17 +25,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: ProviderList.providers,
+    return BlocProvider(
+      create: (context) => UserBloc(),
       child: MaterialApp(
-        title: 'Roaya',
+        title: "Roa'ya",
         theme: ThemeData(
           primarySwatch: Colors.blue,
+          scaffoldBackgroundColor: Colors.white,
           fontFamily: "inter",
         ),
         debugShowCheckedModeBanner: false,
         initialRoute: Routes.splash,
-        // home: const MainPage(),s
+        // home: Scaffold(body: const PatientsFoldersPage()),
         navigatorKey: CustomNavigator.navigatorState,
         navigatorObservers: [CustomNavigator.routeObserver],
         scaffoldMessengerKey: CustomNavigator.scaffoldState,

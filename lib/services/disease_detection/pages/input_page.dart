@@ -35,6 +35,7 @@ class _InputPageState extends State<InputPage> {
 
   @override
   Widget build(BuildContext context) {
+    var bloc = BlocProvider.of<UploaderBloc>(context);
     return Scaffold(
       backgroundColor: AppColors.mainColor,
       body: Form(
@@ -68,15 +69,15 @@ class _InputPageState extends State<InputPage> {
                     child: ListAnimator(data: [
                       const SizedBox(height: 24),
                       // StreamBuilder<String?>(
-                      //   stream: UploaderBloc.instance.patientNameStream,
+                      //   stream: bloc.patientNameStream,
                       //   builder: (context, snapshot) {
                       //     return CustomTextField(
                       //       hint: "Patient Name",
-                      //       onChange: UploaderBloc.instance.updatePatientName,
+                      //       onChange: bloc.updatePatientName,
                       //       type: TextInputType.emailAddress,
                       //       onValidate: (v) {
                       //         if (NameValidator.nameValidator(v as String) != null) {
-                      //           UploaderBloc.instance.patientName.addError(
+                      //           bloc.patientName.addError(
                       //             NameValidator.nameValidator(v)!,
                       //           );
                       //         }
@@ -87,12 +88,12 @@ class _InputPageState extends State<InputPage> {
                       //   },
                       // ),
                       StreamBuilder<CustomModelSheet?>(
-                        stream: UploaderBloc.instance.patientNameStream,
+                        stream: bloc.patientNameStream,
                         builder: (context, snapshot) {
                           return FormSelector(
                             label: "Patient Name",
-                            value: UploaderBloc.instance.patientName.valueOrNull,
-                            onTap: UploaderBloc.instance.updatePatientName,
+                            value: bloc.patientName.valueOrNull,
+                            onTap: bloc.updatePatientName,
                             data: [
                               CustomModelSheet(name: "Ahmed Ali", value: "152"),
                               CustomModelSheet(name: "Aliaa Mohamed", value: "354"),
@@ -104,20 +105,20 @@ class _InputPageState extends State<InputPage> {
                       ),
                       SizedBox(height: 8),
                       StreamBuilder<String?>(
-                        stream: UploaderBloc.instance.notesStream,
+                        stream: bloc.notesStream,
                         builder: (context, snapshot) {
                           return CustomTextField(
                             hint: "Notes",
-                            onChange: UploaderBloc.instance.updateNotes,
+                            onChange: bloc.updateNotes,
                             type: TextInputType.text,
                             onValidate: (v) {
-                              if (UploaderBloc.instance.patientName.valueOrNull == null) {
-                                UploaderBloc.instance.patientName.addError(
+                              if (bloc.patientName.valueOrNull == null) {
+                                bloc.patientName.addError(
                                   "Please select the patient name",
                                 );
                               }
-                              if (UploaderBloc.instance.image.valueOrNull == null) {
-                                UploaderBloc.instance.image.addError(
+                              if (bloc.image.valueOrNull == null) {
+                                bloc.image.addError(
                                   "Please pick the image",
                                 );
                               }
@@ -130,13 +131,13 @@ class _InputPageState extends State<InputPage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 4),
                         child: StreamBuilder<File?>(
-                            stream: UploaderBloc.instance.imageStream,
+                            stream: bloc.imageStream,
                             builder: (context, snapshot) {
                               return UploadImage(
                                 label: "Upload Image",
-                                updatedImage: UploaderBloc.instance.updateImage,
-                                selectedImage: UploaderBloc.instance.image.valueOrNull,
-                                isFilled: UploaderBloc.instance.image.valueOrNull != null,
+                                updatedImage: bloc.updateImage,
+                                selectedImage: bloc.image.valueOrNull,
+                                isFilled: bloc.image.valueOrNull != null,
                                 hasError: snapshot.hasError,
                                 errorText: (snapshot.error ?? "") as String,
                               );
@@ -154,7 +155,7 @@ class _InputPageState extends State<InputPage> {
                       const SizedBox(height: 36),
                       BlocBuilder<UploaderBloc, AppState>(builder: (context, state) {
                         return StreamBuilder<bool?>(
-                            stream: UploaderBloc.instance.submitStream,
+                            stream: bloc.submitStream,
                             builder: (context, snapshot) {
                               return CustomBtn(
                                 text: "Upload",
@@ -162,7 +163,7 @@ class _InputPageState extends State<InputPage> {
                                   log("${_formKey.currentState!.validate()}  ${snapshot.data}");
                                   if (snapshot.hasData) {
                                     if (snapshot.data!) {
-                                      UploaderBloc.instance.add(Post());
+                                      bloc.add(Post());
                                     }
                                   }
                                 },

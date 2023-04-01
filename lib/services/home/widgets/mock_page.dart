@@ -6,7 +6,7 @@ import 'package:graduation_project/services/home/widgets/section_title.dart';
 
 import '../../../componants/animated_widgets.dart';
 import '../../../componants/shimmer/custom_shimmer.dart';
-import 'latest_results_panel.dart';
+import 'comming_appoinments.dart';
 
 class HomeMockPage extends StatelessWidget {
   const HomeMockPage({
@@ -25,7 +25,9 @@ class HomeMockPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
               CustomShimmerText(width: 100),
-              SizedBox(height: 8,),
+              SizedBox(
+                height: 8,
+              ),
               CustomShimmerText(width: 150),
             ],
           ),
@@ -44,11 +46,10 @@ class HomeMockPage extends StatelessWidget {
           child: SectionTitle(title: "Latest Results"),
         ),
         const Padding(
-          padding: EdgeInsets.symmetric(horizontal:24),
+          padding: EdgeInsets.symmetric(horizontal: 24),
           child: LatestResultsPanelMock(),
         ),
       ]),
     );
   }
 }
-

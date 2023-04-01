@@ -20,7 +20,6 @@ import '../widgets/result_bottom_sheet.dart';
 
 class UploaderBloc extends Bloc<AppEvent, AppState> {
   UploaderBloc() : super(Start());
-  static UploaderBloc get instance => BlocProvider.of(CustomNavigator.navigatorState.currentContext!);
   final patientName = BehaviorSubject<CustomModelSheet?>();
   final notes = BehaviorSubject<String?>();
   final image = BehaviorSubject<File?>();
@@ -74,7 +73,7 @@ class UploaderBloc extends Bloc<AppEvent, AppState> {
               ),
             ),
             builder: (context) => ResultBottemSheet(
-              patienName: UploaderBloc.instance.patientName.valueOrNull!.name ?? "",
+              patienName: patientName.valueOrNull!.name ?? "",
               diseasesName: model.results ?? "there is no results",
             ),
           ).then((value) => clear());
