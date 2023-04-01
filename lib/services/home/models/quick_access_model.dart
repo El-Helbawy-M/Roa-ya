@@ -5,8 +5,8 @@ import 'package:graduation_project/router/routes.dart';
 class QuickAccessOptions {
   int length = 2;
   List<String> names = [
-    "Diseases \nDetection",
-    "Coming \nSoon",
+    "Diseases Detection",
+    "Coming Soon",
   ];
   List<String> icons = [
     "eye_fundus",

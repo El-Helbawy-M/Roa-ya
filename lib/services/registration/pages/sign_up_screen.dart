@@ -30,6 +30,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
   bool showPassword = false, showConfirmPassword = false;
   @override
   Widget build(BuildContext context) {
+    var bloc = BlocProvider.of<RegisterBloc>(context);
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
@@ -65,18 +66,18 @@ class _SingUpScreenState extends State<SingUpScreen> {
                     padding: const EdgeInsets.all(24),
                     child: ListAnimator(
                       data: [
-                        SizedBox(height: 24),
+                        const SizedBox(height: 24),
                         StreamBuilder<String?>(
-                            stream: RegisterBloc.instance.nameStream,
+                            stream: bloc.nameStream,
                             builder: (context, snapshot) {
                               return CustomTextField(
                                   hint: "Your Name",
                                   fieldKey: ValueKey("name"),
-                                  onChange: RegisterBloc.instance.updateName,
+                                  onChange: bloc.updateName,
                                   type: TextInputType.text,
                                   onValidate: (v) {
                                     if (NameValidator.nameValidator(v as String) != null) {
-                                      RegisterBloc.instance.name.addError(
+                                      bloc.name.addError(
                                         NameValidator.nameValidator(v)!,
                                       );
                                     }
@@ -87,16 +88,16 @@ class _SingUpScreenState extends State<SingUpScreen> {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 18.0),
                           child: StreamBuilder<String?>(
-                            stream: RegisterBloc.instance.emailStream,
+                            stream: bloc.emailStream,
                             builder: (context, snapshot) {
                               return CustomTextField(
                                 hint: getLang("email"),
                                 fieldKey: ValueKey("email"),
-                                onChange: RegisterBloc.instance.updateEmail,
+                                onChange: bloc.updateEmail,
                                 type: TextInputType.emailAddress,
                                 onValidate: (v) {
                                   if (EmailValidator.emailValidator(v as String) != null) {
-                                    RegisterBloc.instance.email.addError(
+                                    bloc.email.addError(
                                       EmailValidator.emailValidator(v)!,
                                     );
                                   }
@@ -108,12 +109,12 @@ class _SingUpScreenState extends State<SingUpScreen> {
                           ),
                         ),
                         StreamBuilder<String?>(
-                            stream: RegisterBloc.instance.passwordStream,
+                            stream: bloc.passwordStream,
                             builder: (context, snapshot) {
                               return CustomTextField(
                                 hint: getLang("password"),
                                 fieldKey: ValueKey("password"),
-                                onChange: RegisterBloc.instance.updatePassword,
+                                onChange: bloc.updatePassword,
                                 type: TextInputType.visiblePassword,
                                 suffixIcon: Padding(
                                   padding: const EdgeInsets.all(14.0),
@@ -128,7 +129,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                                 hide: showPassword,
                                 onValidate: (v) {
                                   if (PasswordValidator.passwordValidator(v as String) != null) {
-                                    RegisterBloc.instance.password.addError(
+                                    bloc.password.addError(
                                       PasswordValidator.passwordValidator(v)!,
                                     );
                                   }
@@ -139,12 +140,12 @@ class _SingUpScreenState extends State<SingUpScreen> {
                             }),
                         const SizedBox(height: 18),
                         StreamBuilder<String?>(
-                            stream: RegisterBloc.instance.confirmPasswordStream,
+                            stream: bloc.confirmPasswordStream,
                             builder: (context, snapshot) {
                               return CustomTextField(
                                 hint: getLang("confirm_password"),
                                 fieldKey: ValueKey("confirm_password"),
-                                onChange: RegisterBloc.instance.updateConfirmPassword,
+                                onChange: bloc.updateConfirmPassword,
                                 type: TextInputType.visiblePassword,
                                 suffixIcon: Padding(
                                   padding: const EdgeInsets.all(14.0),
@@ -158,9 +159,9 @@ class _SingUpScreenState extends State<SingUpScreen> {
                                 ),
                                 hide: showConfirmPassword,
                                 onValidate: (v) {
-                                  if (PasswordConfirmationValidator.passwordValidator(v, RegisterBloc.instance.password.valueOrNull) != null) {
-                                    RegisterBloc.instance.confirmPassword.addError(
-                                      PasswordConfirmationValidator.passwordValidator(v, RegisterBloc.instance.password.valueOrNull)!,
+                                  if (PasswordConfirmationValidator.passwordValidator(v, bloc.password.valueOrNull) != null) {
+                                    bloc.confirmPassword.addError(
+                                      PasswordConfirmationValidator.passwordValidator(v, bloc.password.valueOrNull)!,
                                     );
                                   }
                                 },
@@ -171,7 +172,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                         const SizedBox(height: 30),
                         BlocBuilder<RegisterBloc, AppState>(builder: (context, state) {
                           return StreamBuilder<bool?>(
-                              stream: RegisterBloc.instance.submitStream,
+                              stream: bloc.submitStream,
                               builder: (context, snapshot) {
                                 return CustomBtn(
                                   text: getLang("sign_up"),
@@ -180,7 +181,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                                     if (snapshot.hasData) {
                                       if (snapshot.data!) {
                                         if (!widget.isTestMode) {
-                                          RegisterBloc.instance.add(Post());
+                                          bloc.add(Post());
                                         } else {
                                           widget.onTest != null ? widget.onTest!() : () {};
                                         }

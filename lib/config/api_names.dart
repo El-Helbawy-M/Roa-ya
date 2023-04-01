@@ -4,4 +4,6 @@ abstract class ApiNames {
   static String login = "login";
   static String register = "register";
   static String logout = "logout";
+  static String patients = "patients";
+  static String latestAppoinments = "appointments";
 }

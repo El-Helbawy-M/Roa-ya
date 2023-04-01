@@ -4,6 +4,8 @@ import 'package:graduation_project/helpers/app_colors.dart';
 import 'package:graduation_project/helpers/app_media_query.dart';
 import 'package:graduation_project/helpers/app_text_styles.dart';
 import 'package:graduation_project/helpers/shared_helper.dart';
+import 'package:graduation_project/router/navigator.dart';
+import 'package:graduation_project/router/routes.dart';
 import '../widgets/more_option.dart';
 
 class MorePage extends StatelessWidget {
@@ -51,8 +53,9 @@ class MorePage extends StatelessWidget {
               const SizedBox(height: 16),
               MoreOption(label: "Edit Pofile", iconName: "edit_profile", onTap: () {}),
               MoreOption(label: "Notidicatoins", iconName: "notification", onTap: () {}),
-              MoreOption(label: "Policies", iconName: "security", onTap: () {}),
+              MoreOption(label: "Appointments", iconName: "appointment", onTap: () {}),
               MoreOption(label: "Report Issue", iconName: "question", onTap: () {}),
+              MoreOption(label: "Policies", iconName: "security", onTap: () => CustomNavigator.push(Routes.policies)),
               MoreOption(label: "Rate Us", iconName: "star", onTap: () {}),
               MoreOption(
                 label: "Logout",

@@ -33,6 +33,7 @@ class _SignInScreenState extends State<SignInScreen> {
   bool showPassword = false;
   @override
   Widget build(BuildContext context) {
+    var bloc = BlocProvider.of<SignInBloc>(context);
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
@@ -68,16 +69,16 @@ class _SignInScreenState extends State<SignInScreen> {
                       data: [
                         const SizedBox(height: 24),
                         StreamBuilder<String?>(
-                            stream: SignInBloc.instance.emailStream,
+                            stream: bloc.emailStream,
                             builder: (context, snapshot) {
                               return CustomTextField(
                                 fieldKey: const Key("emailField"),
                                 hint: getLang("email"),
-                                onChange: SignInBloc.instance.updateEmail,
+                                onChange: bloc.updateEmail,
                                 type: TextInputType.emailAddress,
                                 onValidate: (v) {
                                   if (EmailValidator.emailValidator(v as String) != null) {
-                                    SignInBloc.instance.email.addError(EmailValidator.emailValidator(v)!);
+                                    bloc.email.addError(EmailValidator.emailValidator(v)!);
                                   }
                                 },
                                 hasError: snapshot.hasError,
@@ -86,12 +87,12 @@ class _SignInScreenState extends State<SignInScreen> {
                             }),
                         const SizedBox(height: 18),
                         StreamBuilder<String?>(
-                            stream: SignInBloc.instance.passwordStream,
+                            stream: bloc.passwordStream,
                             builder: (context, snapshot) {
                               return CustomTextField(
                                 fieldKey: Key("password_field"),
                                 hint: getLang("password"),
-                                onChange: SignInBloc.instance.updatePassword,
+                                onChange: bloc.updatePassword,
                                 type: TextInputType.visiblePassword,
                                 suffixIcon: Padding(
                                   padding: const EdgeInsets.all(14.0),
@@ -106,7 +107,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                 hide: showPassword,
                                 onValidate: (v) {
                                   if (PasswordValidator.passwordValidator(v) != null) {
-                                    SignInBloc.instance.password.addError(PasswordValidator.passwordValidator(v)!);
+                                    bloc.password.addError(PasswordValidator.passwordValidator(v)!);
                                   }
                                 },
                                 hasError: snapshot.hasError,
@@ -127,7 +128,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         BlocBuilder<SignInBloc, AppState>(
                           builder: (context, state) {
                             return StreamBuilder<bool?>(
-                              stream: SignInBloc.instance.submitStream,
+                              stream: bloc.submitStream,
                               builder: (context, snapshot) {
                                 return CustomBtn(
                                   text: getLang("Log_in"),
@@ -136,7 +137,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                     if (snapshot.hasData) {
                                       if (snapshot.data!) {
                                         if (!widget.isTestMode) {
-                                          SignInBloc.instance.add(Post());
+                                          bloc.add(Post());
                                         } else {
                                           widget.onTest != null ? widget.onTest!() : () {};
                                         }

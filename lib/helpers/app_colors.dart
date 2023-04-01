@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-abstract class AppColors{
+abstract class AppColors {
   static Color mainColor = const Color(0xff4871F7);
-  static Color borderColor = Colors.grey.withOpacity(.5);
+  static Color borderColor = const Color(0xffE7E7E7);
   static Color blaceHolderColor = const Color(0xffD9D9D9);
   static Color lightGrey = const Color(0xff757575);
   static Color inActive = const Color(0xffDB5353);
@@ -16,4 +16,7 @@ abstract class AppColors{
   static Color subHeader = const Color(0xFF737373);
   static Color lightFieldColor = const Color(0xffF9F9FA);
   static Color lightHeader = const Color(0xff616161);
+  static Color containerColor = const Color(0xffF9F9F9);
+  static Color bodyMediumColor = const Color(0xffA7A7A7);
+  static Color titleMediumColor = const Color(0xffcccccc);
 }
