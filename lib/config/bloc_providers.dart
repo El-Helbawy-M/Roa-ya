@@ -1,19 +1,12 @@
-
-
-import 'package:flutter_bloc/src/bloc_provider.dart'
-    show BlocProvider, BlocProviderSingleChildWidget;
+import 'package:flutter_bloc/src/bloc_provider.dart' show BlocProvider, BlocProviderSingleChildWidget;
 import 'package:graduation_project/services/disease_detection/bloc/uploader_bloc.dart';
-import 'package:graduation_project/services/registration/bloc/register_bloc.dart';
-import 'package:graduation_project/services/registration/bloc/signIn_bloc.dart';
-import 'package:graduation_project/services/registration/bloc/user_bloc.dart';
-import 'package:graduation_project/services/splash/bloc/splash_bloc.dart';
+import 'package:graduation_project/services/patients_folders/blocs/patients_bloc.dart';
+
+import '../services/home/blocs/latest_appoinments_bloc.dart';
 
 abstract class ProviderList {
   static List<BlocProviderSingleChildWidget> providers = [
-    BlocProvider<SignInBloc>(create: (_) => SignInBloc()),
-    BlocProvider<RegisterBloc>(create: (_) => RegisterBloc()),
-    BlocProvider<SplashBloc>(create: (_) => SplashBloc()),
-    BlocProvider<UserBloc>(create: (_) => UserBloc()),
-    BlocProvider<UploaderBloc>(create: (_) => UploaderBloc()),
+    BlocProvider<PatientsCubit>(create: (_) => PatientsCubit()..getPatients()),
+    BlocProvider<LatestAppoinmentsCubit>(create: (_) => LatestAppoinmentsCubit()..getAppoinments()),
   ];
 }

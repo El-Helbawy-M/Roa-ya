@@ -29,7 +29,7 @@ dependencies:
   shimmer: ^2.0.0
   image_picker: ^0.8.6
   should_rebuild: ^1.0.1
-  
+  lottie: ^2.2.0
 
 
 dev_dependencies:
@@ -50,6 +50,7 @@ flutter:
     - assets/svgs/
     - assets/images/
     - assets/lang/
+    - assets/animations/
 
   fonts:
     - family: default

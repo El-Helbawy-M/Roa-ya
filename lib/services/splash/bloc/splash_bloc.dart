@@ -10,8 +10,6 @@ import '../../../router/routes.dart';
 class SplashBloc extends Bloc<AppEvent, AppState> {
   SplashBloc() : super(Start());
 
-  static SplashBloc get instance => BlocProvider.of(CustomNavigator.navigatorState.currentContext!);
-
   @override
   Stream<AppState> mapEventToState(AppEvent event) async* {
     if (event is Click) {

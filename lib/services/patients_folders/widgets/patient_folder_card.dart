@@ -1,26 +1,23 @@
 import 'package:flutter/material.dart';
-
+import 'package:graduation_project/services/patients_folders/models/patients_model.dart';
 import '../../../componants/custom_icon.dart';
-import '../../../componants/custom_network_image.dart';
 import '../../../helpers/app_colors.dart';
 import '../../../helpers/app_media_query.dart';
 import '../../../helpers/app_text_styles.dart';
 
 class PatientFolderCard extends StatelessWidget {
-  const PatientFolderCard({
-    Key? key,
-  }) : super(key: key);
-
+  const PatientFolderCard({Key? key, required this.model}) : super(key: key);
+  final Patient model;
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 124,
+      height: 112,
       width: MediaHelper.width,
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(width: 1, color: AppColors.blaceHolderColor),
+        border: Border.all(width: .5, color: AppColors.borderColor),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,22 +25,17 @@ class PatientFolderCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              CustomNetworkImage.circleNewWorkImage(
-                radius: 24,
-                image: "https://images.pexels.com/photos/189857/pexels-photo-189857.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-              ),
-              const SizedBox(width: 16),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Ahmed ali",
+                    model.name ?? "no name",
                     style: AppTextStyles.w600.copyWith(fontSize: 18),
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    "Ahmedali@gmail.com",
-                    style: AppTextStyles.w600.copyWith(fontSize: 14, color: AppColors.blaceHolderColor),
+                    model.email ?? "no email",
+                    style: AppTextStyles.w600.copyWith(fontSize: 14, color: AppColors.bodyMediumColor),
                   ),
                 ],
               ),
@@ -56,22 +48,23 @@ class PatientFolderCard extends StatelessWidget {
                   children: [
                     customImageIconSVG(width: 16, height: 16, imageName: "timer", color: AppColors.mainColor.withOpacity(.7)),
                     const SizedBox(width: 8),
-                    Expanded(child: Text("Visit time - 02:00PM", style: AppTextStyles.w500.copyWith(fontSize: 16, color: AppColors.lightGrey))),
+                    Expanded(child: Text(model.history != null ? "Visit time - ${model.history}" : "no history", style: AppTextStyles.w300.copyWith(fontSize: 12, color: Colors.black))),
                   ],
                 ),
               ),
               SizedBox(
-                  height: 24,
-                  child: VerticalDivider(
-                    color: AppColors.borderColor,
-                    thickness: 1,
-                  )),
+                height: 24,
+                child: VerticalDivider(
+                  color: AppColors.borderColor,
+                  thickness: 1,
+                ),
+              ),
               Expanded(
                 child: Row(
                   children: [
                     customImageIconSVG(width: 16, height: 16, imageName: "calendar", color: AppColors.mainColor.withOpacity(.5)),
                     const SizedBox(width: 8),
-                    Expanded(child: Text("12-2-20022", style: AppTextStyles.w500.copyWith(fontSize: 16, color: AppColors.lightGrey))),
+                    Expanded(child: Text(model.createdAt ?? "no date", style: AppTextStyles.w300.copyWith(fontSize: 12, color: Colors.black))),
                   ],
                 ),
               ),

@@ -17,7 +17,7 @@ class MoreOption extends StatelessWidget {
           contentPadding: const EdgeInsets.symmetric(horizontal: 24),
           leading: customImageIconSVG(imageName: iconName, color: isLogout ? AppColors.inActive : AppColors.mainColor),
           minLeadingWidth: 20,
-          title: Text(label, style: AppTextStyles.w500.copyWith(fontSize: 18)),
+          title: Text(label, style: AppTextStyles.w300.copyWith(fontSize: 16)),
           trailing: Icon(Icons.arrow_forward_ios_rounded, color: isLogout ? AppColors.inActive : AppColors.mainColor, size: 16),
           onTap: onTap,
         ),

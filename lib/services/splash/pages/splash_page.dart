@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/componants/custom_icon.dart';
 import 'package:graduation_project/helpers/app_colors.dart';
 
@@ -19,9 +20,7 @@ class _SplashState extends State<Splash> with WidgetsBindingObserver {
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
-    Timer(Duration(seconds: 3), () {
-       SplashBloc.instance.add(Click());
-    });
+
     super.initState();
   }
 
@@ -38,6 +37,9 @@ class _SplashState extends State<Splash> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    Timer(Duration(seconds: 3), () {
+      context.read<SplashBloc>().add(Click());
+    });
     return Scaffold(
         backgroundColor: AppColors.mainColor,
         body: Center(
@@ -59,8 +61,8 @@ class _SplashState extends State<Splash> with WidgetsBindingObserver {
                   durationMilli: 2000.0,
                   verticalOffset: 0.0,
                   horizontalOffset: 0.0,
-                  child: Row(mainAxisAlignment: MainAxisAlignment.center,children: [
-                    customImageIcon(imageName: "logo",width: 226,height: 48),
+                  child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    customImageIcon(imageName: "logo", width: 226, height: 48),
                     SizedBox(width: 25),
                   ]),
                 ),
@@ -68,20 +70,7 @@ class _SplashState extends State<Splash> with WidgetsBindingObserver {
               Padding(
                   padding: EdgeInsets.symmetric(vertical: 40.0),
                   child: RichText(
-                    text: TextSpan(
-                        text: "Powerd By",
-                        children: [
-                          TextSpan(
-                              text: " Roa'ya",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white))
-                        ],
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white)),
+                    text: TextSpan(text: "Powerd By", children: [TextSpan(text: " Roa'ya", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Colors.white))], style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Colors.white)),
                   )),
             ],
           ),

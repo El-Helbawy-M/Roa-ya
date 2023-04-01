@@ -1,15 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:graduation_project/componants/custom_icon.dart';
-import 'package:graduation_project/componants/empty_container.dart';
 import 'package:graduation_project/helpers/app_colors.dart';
 import 'package:graduation_project/helpers/app_media_query.dart';
 import 'package:graduation_project/helpers/app_text_styles.dart';
 import 'package:graduation_project/services/home/pages/home_screen.dart';
-
 import '../more/pages/more.dart';
 import '../patients_folders/pages/patients_folders_list_page.dart';
 
@@ -25,7 +19,7 @@ class _MainPageState extends State<MainPage> {
   PageController controller = PageController();
   List<Widget> screens = [
     const HomeScreen(),
-    const EmptyContainer(img: "soon_state", txt: "Comming soon!"),
+    // const EmptyContainer(img: "soon_state", txt: "Comming soon!"),
     const PatientsFoldersPage(),
     const MorePage(),
   ];
@@ -65,28 +59,20 @@ class _MainPageState extends State<MainPage> {
                         setState(() => index = 0);
                       }),
                   BottomNavigationButton(
-                      label: "Dashboard",
-                      iconName: "chart",
+                      label: "Patient List",
+                      iconName: "patients",
                       isSelected: index == 1,
                       onTap: () {
                         _goTo(1);
                         setState(() => index = 1);
                       }),
                   BottomNavigationButton(
-                      label: "Patient List",
-                      iconName: "patients",
+                      label: "More",
+                      iconName: "more",
                       isSelected: index == 2,
                       onTap: () {
                         _goTo(2);
                         setState(() => index = 2);
-                      }),
-                  BottomNavigationButton(
-                      label: "More",
-                      iconName: "more",
-                      isSelected: index == 3,
-                      onTap: () {
-                        _goTo(3);
-                        setState(() => index = 3);
                       }),
                 ],
               ),

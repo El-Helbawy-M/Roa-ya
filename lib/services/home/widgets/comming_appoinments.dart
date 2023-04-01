@@ -1,30 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project/componants/empty_container.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/componants/shimmer/custom_shimmer.dart';
-
+import 'package:graduation_project/core/app_states.dart';
 import '../../../componants/custom_icon.dart';
-import '../../../componants/custom_network_image.dart';
 import '../../../helpers/app_colors.dart';
 import '../../../helpers/app_media_query.dart';
-import '../../../helpers/app_text_styles.dart';
+import '../blocs/latest_appoinments_bloc.dart';
+import 'comming_appoinments_card.dart';
 
-class LatestResultsPanel extends StatelessWidget {
-  const LatestResultsPanel({
+class CommingAppoinments extends StatelessWidget {
+  const CommingAppoinments({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaHelper.width,
-      height: MediaHelper.height/2,
-      child: Column(
-        children: const [
-          Expanded(child: EmptyContainer()),
-        ],
-      ),
+    var bloc = BlocProvider.of<LatestAppoinmentsCubit>(context);
+    return BlocBuilder<LatestAppoinmentsCubit, AppState>(
+      builder: (context, state) {
+        if (state is Done) {
+          return Column(
+            children: List.generate(
+              bloc.model.data!.comingAppointments.length,
+              (index) => CommingAppoinmentCard(
+                appoiment: bloc.model.data!.comingAppointments[index],
+              ),
+            ),
+          );
+        } else if (state is Loading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state is Empty) {
+          return Container();
+        } else {
+          return Container();
+        }
+      },
     );
-    
+
     //  Column(
     //   children: List.generate(
     //     10,
@@ -88,7 +102,9 @@ class LatestResultsPanelMock extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const CustomShimmerCircleImage(radius: 25,),
+              const CustomShimmerCircleImage(
+                radius: 25,
+              ),
               const SizedBox(width: 16),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,

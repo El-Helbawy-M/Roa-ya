@@ -1,4 +1,4 @@
-abstract class Routes{
+abstract class Routes {
   static const String main = "main";
   static const String login = "login";
   static const String register = "register";
@@ -11,4 +11,6 @@ abstract class Routes{
   static const String profile = "profile";
   static const String onboarding = "onboarding";
   static const String diseaseDetection = "disease_detection";
+  static const String search = "search";
+  static const String policies = "policies";
 }

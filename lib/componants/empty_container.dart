@@ -12,8 +12,8 @@ class EmptyContainer extends StatelessWidget {
   final double? remain;
   final double? height;
   final TextStyle? subStyle;
-
-  const EmptyContainer({Key? key, this.img, this.txt, this.remain = 0.0, this.subText, this.subStyle, this.height}) : super(key: key);
+  final bool isSvg;
+  const EmptyContainer({Key? key, this.isSvg = true, this.img, this.txt, this.remain = 0.0, this.subText, this.subStyle, this.height}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,7 +27,14 @@ class EmptyContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Expanded(child: customImageIconSVG(imageName: img ?? "empty")),
+                if (isSvg) Expanded(child: customImageIconSVG(imageName: img ?? "empty")),
+                if (!isSvg)
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(48),
+                      child: Image.asset(img ?? ""),
+                    ),
+                  ),
                 // customImageIconSVG(imageName: "empty-image"),
                 const SizedBox(
                   height: 32,
