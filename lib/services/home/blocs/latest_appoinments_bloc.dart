@@ -10,7 +10,21 @@ class LatestAppoinmentsCubit extends Cubit<AppState> {
   void getAppoinments() async {
     emit(Loading());
     try {
-      model = await HomeRepo().getAppoinments();
+      // model = await HomeRepo().getAppoinments();
+      model = LatestAppoimentsModel(
+        data: CommingAppoimentsData(comingAppointments: [
+          Appoiment(
+            id: 1,
+            patient: "Mohamed Khaled",
+            time: "10:00 AM",
+          ),
+          Appoiment(
+            id: 2,
+            patient: "Ahmed Ali",
+            time: "12:00 PM",
+          ),
+        ]),
+      );
       if (model.data!.comingAppointments.isEmpty) {
         emit(Empty());
       } else {

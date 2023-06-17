@@ -58,11 +58,16 @@ class SignInBloc extends Bloc<AppEvent, AppState> {
             {"email": email.valueOrNull, "password": password.valueOrNull},
           ),
         );
-        SharedHelper.sharedHelper!.saveUser(model, remember: false, password: password.valueOrNull);
-        UserBloc.instance.add(Click());
-        CustomNavigator.push(Routes.main, clean: true);
-        clear();
-        yield Done();
+        if (model.message != "invalid credentials.") {
+          SharedHelper.sharedHelper!.saveUser(model, remember: false, password: password.valueOrNull);
+          UserBloc.instance.add(Click());
+          CustomNavigator.push(Routes.main, clean: true);
+          clear();
+          yield Done();
+        } else {
+          ErrorHandler(title: "Authentaction Error", message: "Invalid Credentials").showDefaultErrorMessage();
+          yield Error();
+        }
       }
     } catch (e) {
       ErrorHandler(title: "Authentaction Error", message: "Something is wrong, please try again later").showDefaultErrorMessage();

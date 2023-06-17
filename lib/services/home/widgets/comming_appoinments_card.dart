@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:graduation_project/services/home/models/latest_appoinemts_mode.dart';
 
@@ -13,6 +15,7 @@ class CommingAppoinmentCard extends StatelessWidget {
   final Appoiment appoiment;
   @override
   Widget build(BuildContext context) {
+    log(appoiment.patient ?? "no name");
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: InkWell(
@@ -40,7 +43,7 @@ class CommingAppoinmentCard extends StatelessWidget {
                             children: [
                               customImageIconSVG(imageName: "calendar", width: 16, height: 16, color: AppColors.mainColor),
                               const SizedBox(width: 8),
-                              Text(appoiment.date ?? "no date", style: AppTextStyles.w200.copyWith(fontSize: 14, color: AppColors.greyText)),
+                              Text(appoiment.date ?? "no date", style: AppTextStyles.w600.copyWith(fontSize: 14, color: AppColors.greyText)),
                             ],
                           ),
                         ),
@@ -49,7 +52,7 @@ class CommingAppoinmentCard extends StatelessWidget {
                             children: [
                               customImageIconSVG(imageName: "timer", width: 16, height: 16, color: AppColors.mainColor),
                               const SizedBox(width: 8),
-                              Text(appoiment.time ?? "no time", style: AppTextStyles.w200.copyWith(fontSize: 14, color: AppColors.greyText)),
+                              Text(appoiment.time ?? "no time", style: AppTextStyles.w600.copyWith(fontSize: 14, color: AppColors.greyText)),
                             ],
                           ),
                         )

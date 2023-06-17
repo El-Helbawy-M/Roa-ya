@@ -8,9 +8,11 @@ class TermCard extends StatelessWidget {
     super.key,
     required this.index,
     required this.termText,
+    required this.termTitle,
   });
   final int index;
   final String termText;
+  final String termTitle;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +23,7 @@ class TermCard extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(borderRadius: const BorderRadius.vertical(top: Radius.circular(10)), color: AppColors.mainColor),
+            decoration: BoxDecoration(borderRadius: const BorderRadius.vertical(top: Radius.circular(10)), color: Colors.white),
             child: Row(
               children: [
                 Container(
@@ -29,21 +31,22 @@ class TermCard extends StatelessWidget {
                   height: 36,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
+                    color: AppColors.mainColor,
                   ),
                   child: Center(
                     child: Text(
                       (index + 1).toString(),
-                      style: AppTextStyles.w800.copyWith(fontSize: 16, color: AppColors.mainColor),
+                      style: AppTextStyles.w800.copyWith(fontSize: 16, color: Colors.white),
                     ),
                   ),
                 ),
                 const SizedBox(width: 16),
-                Text("First Term", style: AppTextStyles.w500.copyWith(fontSize: 18, color: Colors.white)),
+                Text(termTitle, style: AppTextStyles.w600.copyWith(fontSize: 18, color: AppColors.mainColor)),
               ],
             ),
           ),
-          const SizedBox(height: 24),
+          Divider(height: 0, color: AppColors.mainColor),
+          const SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(

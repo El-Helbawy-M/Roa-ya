@@ -1,7 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/componants/animated_widgets.dart';
@@ -15,17 +13,13 @@ import 'package:graduation_project/helpers/app_text_styles.dart';
 import 'package:graduation_project/services/disease_detection/bloc/uploader_bloc.dart';
 import 'package:graduation_project/services/disease_detection/model/custom_model_sheet.dart';
 import 'package:graduation_project/services/disease_detection/widgets/form_drop_down_menu.dart';
-import 'package:graduation_project/services/disease_detection/widgets/result_bottom_sheet.dart';
-
+import 'package:graduation_project/services/patients_folders/models/patients_model.dart';
 import '../../../componants/custom_text_field.dart';
 import '../../../core/app_events.dart';
-import '../../../core/validator.dart';
-import '../../../router/navigator.dart';
-import '../../registration/bloc/signIn_bloc.dart';
 
 class InputPage extends StatefulWidget {
-  const InputPage({Key? key}) : super(key: key);
-
+  const InputPage({Key? key, required this.patients}) : super(key: key);
+  final List<Patient> patients;
   @override
   State<InputPage> createState() => _InputPageState();
 }
@@ -94,10 +88,13 @@ class _InputPageState extends State<InputPage> {
                             label: "Patient Name",
                             value: bloc.patientName.valueOrNull,
                             onTap: bloc.updatePatientName,
-                            data: [
-                              CustomModelSheet(name: "Ahmed Ali", value: "152"),
-                              CustomModelSheet(name: "Aliaa Mohamed", value: "354"),
-                            ],
+                            data: List.generate(
+                              widget.patients.length,
+                              (index) => CustomModelSheet(
+                                name: widget.patients[index].name,
+                                value: widget.patients[index].name,
+                              ),
+                            ),
                             hasError: snapshot.hasError,
                             errorText: (snapshot.error ?? "") as String,
                           );
@@ -143,22 +140,15 @@ class _InputPageState extends State<InputPage> {
                               );
                             }),
                       ),
-                      const SizedBox(height: 36),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          HorizontalAnaliticPoint(color: AppColors.mainColor, value: "Internal - 33.3%"),
-                          HorizontalAnaliticPoint(color: AppColors.inActive, value: "External - 53.3%"),
-                          HorizontalAnaliticPoint(color: AppColors.active, value: "Active - 13.3%"),
-                        ],
-                      ),
-                      const SizedBox(height: 36),
+                      const SizedBox(height: 24),
+
                       BlocBuilder<UploaderBloc, AppState>(builder: (context, state) {
                         return StreamBuilder<bool?>(
                             stream: bloc.submitStream,
                             builder: (context, snapshot) {
                               return CustomBtn(
                                 text: "Upload",
+                                withPadding: false,
                                 onTap: () {
                                   log("${_formKey.currentState!.validate()}  ${snapshot.data}");
                                   if (snapshot.hasData) {
@@ -170,7 +160,7 @@ class _InputPageState extends State<InputPage> {
                                 btnHeight: 55,
                                 txtColor: Colors.white,
                                 color: AppColors.mainColor,
-                                radius: 15,
+                                radius: 10,
                                 loading: state is Loading,
                               );
                             });
@@ -183,29 +173,6 @@ class _InputPageState extends State<InputPage> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class HorizontalAnaliticPoint extends StatelessWidget {
-  const HorizontalAnaliticPoint({
-    Key? key,
-    required this.color,
-    required this.value,
-  }) : super(key: key);
-  final Color color;
-  final String value;
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(width: 12, height: 12, decoration: BoxDecoration(shape: BoxShape.circle, color: color)),
-        const SizedBox(width: 8),
-        Text(
-          value,
-          style: AppTextStyles.w500.copyWith(fontSize: 12),
-        )
-      ],
     );
   }
 }

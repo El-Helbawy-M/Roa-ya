@@ -8,12 +8,13 @@ import '../../../helpers/app_media_query.dart';
 import '../../../helpers/app_text_styles.dart';
 
 class QuickActionsPanel extends StatelessWidget {
-  QuickActionsPanel({
+  const QuickActionsPanel({
     Key? key,
   }) : super(key: key);
-  final QuickAccessOptions model = QuickAccessOptions();
+
   @override
   Widget build(BuildContext context) {
+    QuickAccessOptions model = QuickAccessOptions(context);
     return SizedBox(
       height: 156,
       width: MediaHelper.width,

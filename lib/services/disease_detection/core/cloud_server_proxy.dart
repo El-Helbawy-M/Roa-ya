@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../../../network/mapper.dart';
 
 class CloudServerProxy {
-  final String _cloudUrl = "http://164.90.222.190:80";
+  final String _cloudUrl = "http://142.93.243.150:80";
   final Dio _dio = Dio();
   Future<dynamic> post({@required String? url, var body, Mapper? model, var headers}) async {
     Response? _res;

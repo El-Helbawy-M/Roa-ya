@@ -19,4 +19,5 @@ abstract class AppColors {
   static Color containerColor = const Color(0xffF9F9F9);
   static Color bodyMediumColor = const Color(0xffA7A7A7);
   static Color titleMediumColor = const Color(0xffcccccc);
+  static Color pending = const Color(0xffF9A825);
 }
