@@ -6,6 +6,7 @@ import 'package:graduation_project/helpers/app_text_styles.dart';
 import 'package:graduation_project/helpers/shared_helper.dart';
 import 'package:graduation_project/router/navigator.dart';
 import 'package:graduation_project/router/routes.dart';
+import 'package:graduation_project/services/registration/bloc/user_bloc.dart';
 import '../widgets/more_option.dart';
 
 class MorePage extends StatelessWidget {
@@ -21,36 +22,35 @@ class MorePage extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: 24),
-              Container(
+              Padding(
                 padding: const EdgeInsets.all(24),
-                margin: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(14),
-                  color: AppColors.mainColor,
-                  gradient: LinearGradient(colors: [AppColors.mainColor.withOpacity(.5), AppColors.mainColor]),
-                  boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 6, spreadRadius: 1)],
-                ),
                 child: Row(
                   children: [
                     CustomNetworkImage.circleNewWorkImage(
                       image: "https://images.pexels.com/photos/5452268/pexels-photo-5452268.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-                      radius: 36,
+                      radius: 24,
                     ),
-                    const SizedBox(width: 8),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        //UserBloc.instance.user!.user!.name ??
-                        Text("Mohamed ali", style: AppTextStyles.w600.copyWith(fontSize: 20, color: Colors.white)),
-                        const SizedBox(height: 4),
-                        //UserBloc.instance.user!.user!.email ??
-                        Text("mohamed.ali@gmil.com", style: AppTextStyles.w600.copyWith(fontSize: 16, color: AppColors.blaceHolderColor)),
-                      ],
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          //UserBloc.instance.user!.user!.name ??
+                          Text("حماصه", style: AppTextStyles.w600.copyWith(fontSize: 20, color: AppColors.mainColor)),
+                          const SizedBox(height: 4),
+                          //UserBloc.instance.user!.user!.email ??
+                          Text(
+                            "hamasah@gmail.com",
+                            style: AppTextStyles.w600.copyWith(fontSize: 16),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 16),
+              Divider(height: 0, color: AppColors.borderColor),
+              // const SizedBox(height: 16),
               MoreOption(label: "Edit Pofile", iconName: "edit_profile", onTap: () {}),
               MoreOption(label: "Notidicatoins", iconName: "notification", onTap: () {}),
               MoreOption(label: "Appointments", iconName: "appointment", onTap: () {}),

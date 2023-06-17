@@ -1,4 +1,4 @@
-package com.example.roaya
+package com.thermo.roaya
 
 import io.flutter.embedding.android.FlutterActivity
 

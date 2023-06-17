@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project/config/bloc_providers.dart';
 import 'package:graduation_project/router/routes.dart';
+import 'package:graduation_project/services/add_appointment/pages/add_appointment_page.dart';
 import 'package:graduation_project/services/disease_detection/bloc/uploader_bloc.dart';
 import 'package:graduation_project/services/disease_detection/pages/input_page.dart';
 import 'package:graduation_project/services/disease_detection/pages/output_page.dart';
+import 'package:graduation_project/services/gelecoma_detection/blocs/gelecoma_detection_bloc.dart';
 import 'package:graduation_project/services/home/widgets/search_bar.dart';
 import 'package:graduation_project/services/main_pages/main_page.dart';
 import 'package:graduation_project/services/more/pages/policies_screen.dart';
 import 'package:graduation_project/services/onboarding/pages/onboarding_page.dart';
+import 'package:graduation_project/services/patient_appointments/pages/patient_appointments_page.dart';
+import 'package:graduation_project/services/patient_notes/pages/patient_notes_page.dart';
+import 'package:graduation_project/services/patients_folders/models/patients_model.dart';
 import 'package:graduation_project/services/registration/bloc/register_bloc.dart';
 import 'package:graduation_project/services/registration/pages/forget_bassword_screen.dart';
 import 'package:graduation_project/services/registration/pages/reset_password_screen.dart';
@@ -20,7 +25,9 @@ import 'package:graduation_project/services/search/blocs/search_bloc.dart';
 import 'package:graduation_project/services/search/pages/search_screen.dart';
 import 'package:graduation_project/services/splash/pages/splash_page.dart';
 
+import '../services/gelecoma_detection/pages/gelecoma_detection_page.dart';
 import '../services/home/pages/home_screen.dart';
+import '../services/patient_details/pages/patient_details_page.dart';
 import '../services/registration/bloc/signIn_bloc.dart';
 import '../services/splash/bloc/splash_bloc.dart';
 
@@ -58,10 +65,23 @@ class CustomNavigator {
           ),
         );
       case Routes.diseaseDetection:
-        return _routeTo(BlocProvider(
-          create: (context) => UploaderBloc(),
-          child: const InputPage(),
-        ));
+        return _routeTo(
+          BlocProvider(
+            create: (context) => UploaderBloc(),
+            child: InputPage(
+              patients: settings.arguments as List<Patient>,
+            ),
+          ),
+        );
+      case Routes.gelecomaDetection:
+        return _routeTo(
+          BlocProvider(
+            create: (context) => GelecomaUploaderBloc(),
+            child: GelecomaInputPage(
+              patients: settings.arguments as List<Patient>,
+            ),
+          ),
+        );
       case Routes.splash:
         return _routeTo(BlocProvider(
           create: (context) => SplashBloc(),
@@ -100,6 +120,12 @@ class CustomNavigator {
         ));
       case Routes.policies:
         return _routeTo(const PoliciesScreen());
+      case Routes.patientDetails:
+        return _routeTo(const PatientDetailsPage());
+      case Routes.patientNotes:
+        return _routeTo(const PatientNotesPage());
+      case Routes.patientAppointments:
+        return _routeTo(const PatientAppointmentsPage());
     }
     return MaterialPageRoute(builder: (_) => Container());
   }

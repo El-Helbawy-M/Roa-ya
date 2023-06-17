@@ -2,13 +2,13 @@ import 'package:graduation_project/network/mapper.dart';
 
 class LatestAppoimentsModel extends SingleMapper {
   String? message;
-  ComingAppoimentsData? data;
+  CommingAppoimentsData? data;
 
   LatestAppoimentsModel({this.message, this.data});
 
   LatestAppoimentsModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    data = json['data'] != null ? new ComingAppoimentsData.fromJson(json['data']) : null;
+    data = json['data'] != null ? CommingAppoimentsData.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -26,15 +26,15 @@ class LatestAppoimentsModel extends SingleMapper {
   }
 }
 
-class ComingAppoimentsData {
+class CommingAppoimentsData {
   List<Appoiment> comingAppointments = [];
 
-  ComingAppoimentsData({this.comingAppointments = const []});
+  CommingAppoimentsData({this.comingAppointments = const []});
 
-  ComingAppoimentsData.fromJson(Map<String, dynamic> json) {
-    if (json['coming_appointments'] != null) {
+  CommingAppoimentsData.fromJson(Map<String, dynamic> json) {
+    if (json['appointments'] != null) {
       comingAppointments = <Appoiment>[];
-      json['coming_appointments'].forEach((v) {
+      json['appointments'].forEach((v) {
         comingAppointments.add(new Appoiment.fromJson(v));
       });
     }

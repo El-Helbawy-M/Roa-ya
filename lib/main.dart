@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:graduation_project/config/bloc_providers.dart';
 import 'package:graduation_project/helpers/shared_helper.dart';
 import 'package:graduation_project/router/navigator.dart';
 import 'package:graduation_project/router/routes.dart';
-import 'package:graduation_project/services/disease_detection/pages/input_page.dart';
-import 'package:graduation_project/services/main_pages/main_page.dart';
-import 'package:graduation_project/services/onboarding/pages/onboarding_page.dart';
-import 'package:graduation_project/services/patients_folders/pages/patients_folders_list_page.dart';
+import 'package:graduation_project/services/patient_appointments/pages/patient_appointments_page.dart';
+import 'package:graduation_project/services/patient_details/pages/patient_details_page.dart';
+import 'package:graduation_project/services/patient_notes/pages/patient_notes_page.dart';
 import 'package:graduation_project/services/registration/bloc/user_bloc.dart';
 
 import 'core/localization.dart';
@@ -35,8 +33,8 @@ class MyApp extends StatelessWidget {
           fontFamily: "inter",
         ),
         debugShowCheckedModeBanner: false,
-        initialRoute: Routes.splash,
-        // home: Scaffold(body: const PatientsFoldersPage()),
+        initialRoute: Routes.main,
+        // home: const PatientDetailsPage(),
         navigatorKey: CustomNavigator.navigatorState,
         navigatorObservers: [CustomNavigator.routeObserver],
         scaffoldMessengerKey: CustomNavigator.scaffoldState,

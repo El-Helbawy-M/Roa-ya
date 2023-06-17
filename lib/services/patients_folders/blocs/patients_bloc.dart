@@ -11,8 +11,26 @@ class PatientsCubit extends Cubit<AppState> {
   void getPatients() async {
     emit(Loading());
     try {
-      model = await PatientsRepo().getAllPatients();
-      if (model.data!.patients!.isEmpty) {
+      // model = await PatientsRepo().getAllPatients();
+      model = PatientsModel(
+        data: Patients(
+          patients: [
+            Patient(
+              name: "Mohamed Khaled",
+              email: "mohamed.khaled@gmail.com",
+              createdAt: "2021-09-01",
+              history: "No History",
+            ),
+            Patient(
+              name: "Ahmed Ali",
+              email: "ahmed.ali@gmail.com",
+              createdAt: "2021-09-02",
+              history: "No History",
+            )
+          ],
+        ),
+      );
+      if (model.data!.patients.isEmpty) {
         emit(Empty());
       } else {
         emit(Done());

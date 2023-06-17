@@ -11,21 +11,30 @@ import '../widgets/policies/term_card.dart';
 
 class PoliciesScreen extends StatelessWidget {
   const PoliciesScreen({super.key});
-
+  final List<String> titles = const [
+    "Terms and Conditions",
+    "Privacy Policy",
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.mainColor,
-        leading: GestureDetector(
+        backgroundColor: Colors.white,
+        leading: InkWell(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
           onTap: () => CustomNavigator.pop(),
-          child: const Padding(
-            padding: EdgeInsets.only(left: 14, top: 16, bottom: 16),
-            child: ArrowBack(color: Colors.white),
+          child: Row(
+            children: [
+              const SizedBox(width: 24),
+              ArrowBack(
+                color: AppColors.mainColor,
+              ),
+            ],
           ),
         ),
-        title: Text("Policies", style: AppTextStyles.w500.copyWith(fontSize: 18, color: Colors.white)),
-        elevation: 0,
+        title: Text("Policies", style: AppTextStyles.w600.copyWith(fontSize: 18, color: AppColors.mainColor)),
+        elevation: .2,
       ),
       body: SizedBox(
         width: MediaHelper.width,
@@ -38,9 +47,10 @@ class PoliciesScreen extends StatelessWidget {
               children: [
                 const SizedBox(height: 24),
                 ...List.generate(
-                  5,
+                  2,
                   (index) => TermCard(
                     index: index,
+                    termTitle: titles[index],
                     termText: "لوريم إيبسوم(Lorem Ipsum) هو ببساطة نص شكلي (بمعنى أن الغاية هي الشكل وليس المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم ولايزال المعيار للنص الشكلي منذ القرن الخامس عشر عندما قامت مطبعة مجهولة برص مجموعة من الأحرف بشكل عشوائي أخذتها من نص",
                   ),
                 )
